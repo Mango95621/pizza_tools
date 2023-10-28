@@ -1,0 +1,3 @@
+-keep class com.pizza.tools.activity.ActivityBean
+-keep class com.pizza.tools.app.AppInfo
+-keep class com.pizza.tools.gps.GpsModel

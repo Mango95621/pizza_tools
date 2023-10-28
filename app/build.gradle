@@ -1,0 +1,49 @@
+plugins {
+    id 'com.android.application'
+}
+
+android {
+    compileSdkVersion rootProject.compileSdkVersion
+
+    defaultConfig {
+        applicationId "com.pizza.tools.app"
+        minSdkVersion rootProject.minSdkVersion
+        targetSdkVersion rootProject.targetSdkVersion
+        multiDexEnabled true
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        consumerProguardFiles "consumer-rules.pro"
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_11
+        targetCompatibility JavaVersion.VERSION_11
+    }
+
+    dataBinding {
+        enabled = true
+    }
+}
+
+dependencies {
+    testImplementation 'junit:junit:4.+'
+    androidTestImplementation 'androidx.test.ext:junit:1.1.2'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
+
+    api 'androidx.appcompat:appcompat:1.3.1'
+    api 'androidx.core:core-ktx:1.6.0'
+    api 'androidx.constraintlayout:constraintlayout:2.1.0'
+    api 'androidx.recyclerview:recyclerview:1.2.1'
+    api 'com.google.android.material:material:1.4.0'
+    api 'androidx.cardview:cardview:1.0.0'
+    api 'androidx.annotation:annotation:1.3.0'
+    api 'com.github.bumptech.glide:glide:4.11.0'
+    api 'androidx.multidex:multidex:2.0.1'
+
+    implementation project(":tools")
+}
