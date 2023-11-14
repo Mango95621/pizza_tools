@@ -1,0 +1,56 @@
+buildscript {
+    repositories {
+        google()
+        maven { url "https://jitpack.io" }
+        // 阿里云镜像地址
+        maven { url 'https://maven.aliyun.com/repository/public' }
+        maven { url 'https://maven.aliyun.com/repository/google' }
+        // 华为开源云镜像地址
+        maven { url 'https://repo.huaweicloud.com/repository/maven' }
+        mavenCentral()
+        maven {
+            credentials {
+                username '653b6c43f3c66c6350ab99ee'
+                password 'wIYG[4qpjv1A'
+            }
+            url 'https://packages.aliyun.com/maven/repository/2428756-release-aDWu0e/'
+        }
+    }
+    dependencies {
+        classpath 'com.android.tools.build:gradle:4.2.2'
+    }
+}
+
+allprojects {
+    repositories {
+        google()
+        maven { url "https://jitpack.io" }
+        // 阿里云镜像地址
+        maven { url 'https://maven.aliyun.com/repository/public' }
+        maven { url 'https://maven.aliyun.com/repository/google' }
+        // 华为开源云镜像地址
+        maven { url 'https://repo.huaweicloud.com/repository/maven' }
+        mavenCentral()
+        maven {
+            credentials {
+                username '653b6c43f3c66c6350ab99ee'
+                password 'wIYG[4qpjv1A'
+            }
+            url 'https://packages.aliyun.com/maven/repository/2428756-release-aDWu0e/'
+        }
+    }
+}
+
+task clean(type: Delete) {
+    delete rootProject.buildDir
+}
+
+project.ext {
+    compileSdkVersion = 30
+    minSdkVersion = 19
+
+    // Android6.0(api23)以上的版本中会有权限申请的问题, 所以将targetSdkVersion指定到19
+    targetSdkVersion = 21
+
+    supportLibraryVersion = "28.0.0"
+}

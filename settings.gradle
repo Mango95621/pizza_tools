@@ -1,0 +1,3 @@
+rootProject.name = "pizza_tools"
+include ':app'
+include ':tools'
