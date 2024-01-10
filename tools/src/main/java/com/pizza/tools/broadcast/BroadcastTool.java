@@ -9,7 +9,7 @@ import android.net.ConnectivityManager;
 import com.pizza.tools.NetTool;
 
 /**
- * @author Kyle
+ * @author BoWei
  * 广播工具类
  */
 

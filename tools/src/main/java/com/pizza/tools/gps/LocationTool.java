@@ -27,7 +27,7 @@ import java.util.List;
 import java.util.Locale;
 
 /**
- * @author Kyle
+ * @author BoWei
  * 定位相关工具类
  */
 public class LocationTool {

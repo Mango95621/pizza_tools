@@ -31,7 +31,7 @@ import static com.pizza.tools.ConstantsTool.KB;
 import static com.pizza.tools.ConstantsTool.MB;
 
 /**
- * @author Kyle
+ * @author BoWei
  * 数据处理工具类
  */
 

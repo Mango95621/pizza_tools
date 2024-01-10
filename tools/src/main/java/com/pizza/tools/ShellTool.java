@@ -7,7 +7,7 @@ import java.io.InputStreamReader;
 import java.util.List;
 
 /**
- * @author Kyle
+ * @author BoWei
  * Shell相关工具类
  */
 public class ShellTool {

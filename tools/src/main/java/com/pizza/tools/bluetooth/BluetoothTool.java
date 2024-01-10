@@ -38,7 +38,7 @@ import java.util.UUID;
  * Description:
  * 蓝牙工具类
  *
- * @author Kyle
+ * @author BoWei
  * 2020/5/7 11:47 AM
  */
 public class BluetoothTool {

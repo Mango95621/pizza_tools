@@ -22,7 +22,7 @@ import static  com.pizza.tools.ConstantsTool.REGEX_URL;
 import static  com.pizza.tools.ConstantsTool.REGEX_USERNAME;
 
 /**
- * @author Kyle
+ * @author BoWei
  * 正则工具类
  */
 

@@ -29,7 +29,7 @@ import java.io.InputStreamReader;
 import java.io.OutputStream;
 
 /**
- * @author Kyle
+ * @author BoWei
  * 资源文件工具类
  */
 public class ResTool {

@@ -28,7 +28,7 @@ import java.util.zip.ZipOutputStream;
 import static com.pizza.tools.ConstantsTool.KB;
 
 /**
- * @author Kyle
+ * @author BoWei
  * 压缩相关工具类
  */
 public class ZipTool {

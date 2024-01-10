@@ -19,7 +19,7 @@ import com.pizza.tools.ToolInit;
 import com.pizza.tools.file.FileTool;
 
 /**
- * @author Kyle
+ * @author BoWei
  */
 public class LogTool {
     /**

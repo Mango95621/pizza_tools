@@ -14,7 +14,7 @@ import android.content.pm.PackageManager;
 import android.content.pm.Signature;
 
 /**
- * @author Kyle
+ * @author BoWei
  * 11/25/20 10:40 AM
  */
 public class ApkTool {

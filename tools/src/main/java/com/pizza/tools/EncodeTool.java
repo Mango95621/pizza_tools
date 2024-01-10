@@ -11,7 +11,7 @@ import java.net.URLDecoder;
 import java.net.URLEncoder;
 
 /**
- * @author Kyle
+ * @author BoWei
  * 编码解码相关工具类
  */
 public class EncodeTool {

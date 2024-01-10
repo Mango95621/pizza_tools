@@ -28,7 +28,7 @@ import com.pizza.tools.file.FileTool;
 import com.pizza.tools.log.LogTool;
 
 /**
- * @author Kyle
+ * @author BoWei
  */
 public class PhotoTool {
     public static final int GET_IMAGE_BY_CAMERA = 5001;

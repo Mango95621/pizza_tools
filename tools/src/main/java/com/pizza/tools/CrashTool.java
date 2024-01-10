@@ -23,7 +23,7 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 /**
- * @author Kyle
+ * @author BoWei
  * 异常捕获工具类
  */
 

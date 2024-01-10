@@ -53,7 +53,7 @@ import java.io.OutputStream;
 import java.net.URL;
 
 /**
- * @author Kyle
+ * @author BoWei
  * 图像工具类
  */
 

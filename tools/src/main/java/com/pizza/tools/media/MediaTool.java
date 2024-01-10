@@ -13,7 +13,7 @@ import java.io.InputStreamReader;
 import java.util.List;
 
 /**
- * @author Kyle
+ * @author BoWei
  * 2023/8/29 12:17
  * 多媒体工具类
  */

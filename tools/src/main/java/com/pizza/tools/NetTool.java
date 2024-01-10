@@ -20,7 +20,7 @@ import java.util.List;
 import java.util.regex.Pattern;
 
 /**
- * @author Kyle
+ * @author BoWei
  * 网络工具类
  */
 public class NetTool {

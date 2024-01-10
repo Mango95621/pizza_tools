@@ -1,7 +1,7 @@
 package com.pizza.tools.view.api;
 
 /**
- * @author Kyle
+ * @author BoWei
  * 动画更新接口
  */
 

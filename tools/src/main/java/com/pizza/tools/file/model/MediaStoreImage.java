@@ -6,7 +6,7 @@ import android.net.Uri;
 import java.util.Date;
 
 /**
- * @author Kyle
+ * @author BoWei
  * 2023/8/25 11:17
  * mapping ->
  *  MediaStore.Image.Media._ID,

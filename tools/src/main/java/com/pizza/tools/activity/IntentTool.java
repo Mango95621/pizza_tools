@@ -12,7 +12,7 @@ import com.pizza.tools.file.FileTool;
 import java.io.File;
 
 /**
- * @author Kyle
+ * @author BoWei
  */
 public class IntentTool {
 

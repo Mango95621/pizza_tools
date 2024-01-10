@@ -1,7 +1,7 @@
 package com.pizza.tools.file.model;
 
 /**
- * @author Kyle
+ * @author BoWei
  * 2023/8/28 10:49
  *
  */

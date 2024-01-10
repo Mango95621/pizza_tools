@@ -3,7 +3,7 @@ package com.pizza.tools.file.model;
 import android.net.Uri;
 
 /**
- * @author Kyle
+ * @author BoWei
  * 2023/8/25 11:24
  * mapping ->
  *  MediaStore.Video.Media._ID,

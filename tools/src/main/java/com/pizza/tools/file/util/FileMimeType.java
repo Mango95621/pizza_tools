@@ -11,7 +11,7 @@ import java.util.HashMap;
 import java.util.Locale;
 
 /**
- * @author Kyle
+ * @author BoWei
  * 2023/8/23 19:26
  * 1. getMimeType(str: String?) 先用`mimeTables`获取`mimeType`, 如果为空再去`android.webkit.MimeTypeMap`中找
  * 2. getMimeType(uri: Uri?) 先用`getFilePathByUri(uri)`将`uri`转换为`path`, 再执行步骤1

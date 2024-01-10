@@ -3,7 +3,7 @@ package com.pizza.tools.app;
 import android.app.Application;
 
 /**
- * @author Kyle
+ * @author BoWei
  * 2023/8/28 15:56
  *
  */

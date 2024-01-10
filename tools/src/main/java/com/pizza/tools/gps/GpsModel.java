@@ -1,7 +1,7 @@
 package com.pizza.tools.gps;
 
 /**
- * @author Kyle
+ * @author BoWei
  */
 public class GpsModel {
 

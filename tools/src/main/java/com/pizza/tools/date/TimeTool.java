@@ -20,7 +20,7 @@ import com.pizza.tools.ConstantsTool;
 import com.pizza.tools.DataTool;
 
 /**
- * @author Kyle
+ * @author BoWei
  * 时间相关工具类
  */
 public class TimeTool {

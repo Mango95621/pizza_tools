@@ -27,7 +27,7 @@ import javax.crypto.Cipher;
 import javax.crypto.spec.SecretKeySpec;
 
 /**
- * @author Kyle
+ * @author BoWei
  * 加密解密相关的工具类
  */
 public class EncryptTool {

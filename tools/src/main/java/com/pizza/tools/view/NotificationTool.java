@@ -14,7 +14,7 @@ import android.os.Looper;
 import java.util.ArrayList;
 
 /**
- * @author Kyle
+ * @author BoWei
  */
 public class NotificationTool {
 

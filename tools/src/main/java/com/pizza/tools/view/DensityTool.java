@@ -14,7 +14,7 @@ import androidx.annotation.NonNull;
 import com.pizza.tools.ToolInit;
 
 /***
- * @author Kyle
+ * @author BoWei
  * dp与px互相转换的工具类
  */
 public class DensityTool {

@@ -22,7 +22,7 @@ import java.util.List;
 import java.util.Set;
 
 /**
- * @author Kyle
+ * @author BoWei
  * 进程相关工具类
  */
 

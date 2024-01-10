@@ -14,7 +14,7 @@ import com.pizza.tools.ToolInit;
 
 
 /**
- * @author Kyle
+ * @author BoWei
  * Activity相关工具类
  */
 public class ActivityTool {

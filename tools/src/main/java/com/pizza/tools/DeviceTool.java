@@ -31,7 +31,7 @@ import java.util.Iterator;
 import java.util.Map;
 
 /**
- * @author Kyle
+ * @author BoWei
  * 设备工具类
  */
 

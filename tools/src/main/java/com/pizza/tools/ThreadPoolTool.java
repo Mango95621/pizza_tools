@@ -23,7 +23,7 @@ import android.os.HandlerThread;
 import android.os.Looper;
 
 /**
- * @author Kyle
+ * @author BoWei
  * 线程池相关工具类
  */
 public class ThreadPoolTool {

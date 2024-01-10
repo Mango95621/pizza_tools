@@ -7,7 +7,7 @@ import android.os.Looper;
 import com.pizza.tools.log.LogTool;
 
 /**
- * @author Kyle
+ * @author BoWei
  * 工具初始化类，只能在 Application 中初始化
  */
 public class ToolInit {

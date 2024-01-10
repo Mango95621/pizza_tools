@@ -5,7 +5,7 @@ import android.graphics.drawable.Drawable;
 /**
  * Description:
  *
- * @author Kyle
+ * @author BoWei
  * 2020/8/27 6:38 PM
  */
 public class AppInfo {

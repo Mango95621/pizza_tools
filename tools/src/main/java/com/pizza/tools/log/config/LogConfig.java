@@ -4,7 +4,7 @@ package com.pizza.tools.log.config;
 import com.pizza.tools.log.parser.Parser;
 
 /**
- * @author Kyle
+ * @author BoWei
  * @Description: 日志配置接口
  */
 public interface LogConfig {

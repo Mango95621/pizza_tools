@@ -18,7 +18,7 @@ import java.math.BigDecimal;
 
 
 /**
- * @author Kyle
+ * @author BoWei
  * 2023/8/24 15:25
  * - 1.计算文件大小: BigDecimal
  *

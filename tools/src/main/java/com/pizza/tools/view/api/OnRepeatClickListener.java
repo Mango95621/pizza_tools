@@ -5,7 +5,7 @@ import android.view.View;
 import com.pizza.tools.view.ClickTool;
 
 /**
- * @author Kyle
+ * @author BoWei
  * 重复点击的监听器
  */
 public abstract class OnRepeatClickListener implements View.OnClickListener {

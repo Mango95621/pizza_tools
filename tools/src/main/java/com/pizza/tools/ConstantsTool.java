@@ -1,7 +1,7 @@
 package com.pizza.tools;
 
 /**
- * @author Kyle
+ * @author BoWei
  * 常量工具类
  */
 public class ConstantsTool {

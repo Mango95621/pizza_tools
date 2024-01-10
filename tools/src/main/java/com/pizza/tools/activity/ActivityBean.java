@@ -3,7 +3,7 @@ package com.pizza.tools.activity;
 import android.app.Activity;
 
 /**
- * @author Kyle
+ * @author BoWei
  * 2023/8/1 11:40
  * Activity的实体类
  */

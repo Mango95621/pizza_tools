@@ -39,7 +39,7 @@ import com.pizza.tools.ToolInit;
 import static android.graphics.BlurMaskFilter.Blur;
 
 /**
- * @author Kyle
+ * @author BoWei
  * 文字工具类
  */
 

@@ -22,7 +22,7 @@ import android.view.animation.ScaleAnimation;
 import com.pizza.tools.view.api.OnAnimUpdateListener;
 
 /**
- * @author Kyle
+ * @author BoWei
  * 动画工具类
  */
 public class AnimatorTool {

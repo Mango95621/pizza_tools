@@ -7,7 +7,7 @@ import android.content.Intent;
 import android.net.Uri;
 
 /**
- * @author Kyle
+ * @author BoWei
  * 剪贴板工具类
  */
 
