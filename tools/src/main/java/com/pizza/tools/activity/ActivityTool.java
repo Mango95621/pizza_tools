@@ -28,7 +28,7 @@ public class ActivityTool {
 
     public static ActivityTool getInstance() {
         if (singleton == null) {
-            synchronized (ToolInit.class) {
+            synchronized (ActivityTool.class) {
                 if (singleton == null) {
                     singleton = new ActivityTool();
                 }
