@@ -15,6 +15,7 @@ import android.util.Log;
 
 import com.pizza.tools.app.AppTool;
 
+import java.lang.reflect.Method;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashSet;
@@ -163,6 +164,23 @@ public class ProcessTool {
             }
         }
         return true;
+    }
+
+    /**
+     * 杀死前台进程
+     * 需添加权限 android.permission.FORCE_STOP_PACKAGES
+     * @param packageName 应用包名
+     */
+    public static void stopAppByForce(String packageName) {
+        ActivityManager mActivityManager = (ActivityManager)
+                ToolInit.getApplicationContext().getSystemService(Context.ACTIVITY_SERVICE);
+        Method method;
+        try {
+            method = Class.forName("android.app.ActivityManager").getMethod("forceStopPackage", String.class);
+            method.invoke(mActivityManager, packageName);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     public static String getCurrentProcessName() {
