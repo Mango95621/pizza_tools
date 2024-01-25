@@ -42,10 +42,9 @@ public class ToolInit {
      * @param application
      */
     public void init(Application application, boolean isDebug) {
-        this.sApplication = application;
+        sApplication = application;
         sApplicationContext = application.getApplicationContext();
-        LogTool.init(sApplication, isDebug);
-        this.sIsDebug = isDebug;
+        sIsDebug = isDebug;
         sGlobalHandle = new Handler(Looper.getMainLooper());
     }
 

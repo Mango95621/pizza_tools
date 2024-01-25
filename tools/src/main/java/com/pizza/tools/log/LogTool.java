@@ -1,7 +1,10 @@
 package com.pizza.tools.log;
 
-import android.content.Context;
 import android.util.Log;
+
+import com.pizza.tools.ToolInit;
+import com.pizza.tools.date.TimeTool;
+import com.pizza.tools.file.FileTool;
 
 import java.io.BufferedWriter;
 import java.io.File;
@@ -13,10 +16,6 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
-
-import com.pizza.tools.date.TimeTool;
-import com.pizza.tools.ToolInit;
-import com.pizza.tools.file.FileTool;
 
 /**
  * @author BoWei
@@ -45,7 +44,7 @@ public class LogTool {
     /**
      * 默认的tag
      */
-    private static final String LOG_TAG = "LOG_TAG";
+    private static final String LOG_TAG = "Mango";
     /**
      * 日志文件保存路径
      */
@@ -60,10 +59,14 @@ public class LogTool {
      */
     private static boolean isTreeShow = false;
 
-    public static void init(Context context, boolean isDebug) {
-        logFilePath = FileTool.get().getCanUseRootPath() + context.getPackageName();
-        logFileName = "Log";
-        logSwitch = isDebug;
+    public static void init(boolean isLog) {
+        init(isLog, "Log");
+    }
+
+    public static void init(boolean isLog, String fileName) {
+        logFilePath = FileTool.get().getCanUseRootPath() + ToolInit.getApplicationContext().getPackageName();
+        logFileName = fileName;
+        logSwitch = isLog;
     }
 
     public static void setIsTreeShow(boolean isTreeShow) {
@@ -172,15 +175,15 @@ public class LogTool {
                     } else {
                         // 当前截取的长度已经超过了总长度，则打印出剩下的全部信息
                         if ('e' == level) {
-                            Log.e(tag, msg.substring(i, msg.length()), tr);
+                            Log.e(tag, msg.substring(i), tr);
                         } else if ('w' == level) {
-                            Log.w(tag, msg.substring(i, msg.length()), tr);
+                            Log.w(tag, msg.substring(i), tr);
                         } else if ('d' == level) {
-                            Log.d(tag, msg.substring(i, msg.length()), tr);
+                            Log.d(tag, msg.substring(i), tr);
                         } else if ('i' == level) {
-                            Log.i(tag, msg.substring(i, msg.length()), tr);
+                            Log.i(tag, msg.substring(i), tr);
                         } else {
-                            Log.v(tag, msg.substring(i, msg.length()), tr);
+                            Log.v(tag, msg.substring(i), tr);
                         }
                     }
                 }
@@ -211,7 +214,7 @@ public class LogTool {
             }
 
             if (LOG_TO_FILE) {
-                log2File(String.valueOf(level), tag, msg + tr == null ? "" : "\n" + Log.getStackTraceString(tr));
+                log2File(String.valueOf(level), tag, msg + (tr == null ? "" : "\n") + Log.getStackTraceString(tr));
             }
         }
     }
@@ -224,7 +227,7 @@ public class LogTool {
                     Log.i("msg" + i, logBody.substring(i, i + 4000));
                 } else {
                     // 当前截取的长度已经超过了总长度，则打印出剩下的全部信息
-                    Log.i("msg" + i, logBody.substring(i, logBody.length()));
+                    Log.i("msg" + i, logBody.substring(i));
                 }
             }
         } else {
@@ -263,8 +266,8 @@ public class LogTool {
      * 删除指定的日志文件
      */
     public static void delFile() {
-        String needDelFiel = FILE_SUFFIX.format(getDateBefore());
-        File file = new File(logFilePath, needDelFiel + logFileName);
+        String needDelFile = FILE_SUFFIX.format(getDateBefore());
+        File file = new File(logFilePath, needDelFile + logFileName);
         if (file.exists()) {
             file.delete();
         }
@@ -276,9 +279,9 @@ public class LogTool {
      * @return
      */
     private static Date getDateBefore() {
-        Date nowtime = new Date();
+        Date nowTime = new Date();
         Calendar now = Calendar.getInstance();
-        now.setTime(nowtime);
+        now.setTime(nowTime);
         now.set(Calendar.DATE, now.get(Calendar.DATE) - LOG_SAVE_DAYS);
         return now.getTime();
     }
@@ -295,7 +298,9 @@ public class LogTool {
             if (file.exists()) {
                 PrintStream ps = new PrintStream(new FileOutputStream(file, true));
                 // 往文件里写入字符串
-                ps.append(TimeTool.getCurrentDateTime("\n\n\nyyyy-MM-dd HH:mm:ss") + "\n" + message);
+                ps.append(TimeTool.getCurrentDateTime("\n\n\nyyyy-MM-dd HH:mm:ss"))
+                        .append("\n")
+                        .append(message);
             } else {
                 PrintStream ps = new PrintStream(new FileOutputStream(file));
                 file.createNewFile();
