@@ -97,6 +97,22 @@ public class DeviceTool {
     }
 
     /**
+     * 获取当前屏幕的最小限定符
+     * @param activity activity实例
+     * @return 最小限定符
+     */
+    public static float getSmallestWidth (Activity activity){
+        DisplayMetrics dm = new DisplayMetrics();
+        activity.getWindowManager().getDefaultDisplay().getMetrics(dm);
+        int heightPixels = DeviceTool.getScreenHeight(activity);
+        int widthPixels = DeviceTool.getScreenWidth(activity);
+        float density = dm.density;
+        float heightDP = heightPixels / density;
+        float widthDP = widthPixels / density;
+        return Math.min(widthDP, heightDP);
+    }
+
+    /**
      * 获取手机唯一标识序列号
      *
      * @return
@@ -215,60 +231,6 @@ public class DeviceTool {
             e.printStackTrace();
         }
         return serial;
-    }
-
-    /**
-     * 获取App版本名称
-     *
-     * @param context
-     * @return
-     */
-    public static String getAppVersionName(Context context) {
-        try {
-            // 获取packagemanager的实例
-            PackageManager packageManager = context.getPackageManager();
-            // getPackageName()是你当前类的包名，0代表是获取版本信息
-            PackageInfo packInfo = packageManager.getPackageInfo(ToolInit.getApplicationContext().getPackageName(),
-                    PackageManager.GET_ACTIVITIES);
-            return packInfo.versionName;
-        } catch (PackageManager.NameNotFoundException e) {
-            e.printStackTrace();
-            return "";
-        }
-    }
-
-    /**
-     * 获取App版本号
-     *
-     * @return
-     */
-    public static int getAppVersionCode() {
-        try {
-            // 获取packagemanager的实例
-            PackageManager packageManager = ToolInit.getApplicationContext().getPackageManager();
-            // getPackageName()是你当前类的包名，0代表是获取版本信息
-            PackageInfo packInfo = packageManager.getPackageInfo(ToolInit.getApplicationContext().getPackageName(),
-                    PackageManager.GET_ACTIVITIES);
-            return packInfo.versionCode;
-        } catch (PackageManager.NameNotFoundException e) {
-            e.printStackTrace();
-            return 0;
-        }
-    }
-
-    /**
-     * 遍历LOG输出HashMap
-     *
-     * @param res
-     */
-    public static void throughArray(HashMap res) {
-        Iterator ite = res.entrySet().iterator();
-        while (ite.hasNext()) {
-            Map.Entry entry = (Map.Entry) ite.next();
-            Object key = entry.getKey();
-            Object value = entry.getValue();
-            LogTool.d("MSG_AUTH_COMPLETE", (key + "： " + value));
-        }
     }
 
     /**
