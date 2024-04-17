@@ -239,10 +239,9 @@ public class AppTool {
      * @param packageName 包名
      */
     public static void launchApp(Context context, String packageName) {
-        if (DataTool.isNullString(packageName)) {
-            return;
+        if (isInstallApp(context, packageName)) {
+            context.startActivity(IntentTool.getLaunchAppIntent(context, packageName));
         }
-        context.startActivity(IntentTool.getLaunchAppIntent(context, packageName));
     }
 
     /**
@@ -253,10 +252,9 @@ public class AppTool {
      * @param requestCode 请求值
      */
     public static void launchApp(Activity activity, String packageName, int requestCode) {
-        if (DataTool.isNullString(packageName)) {
-            return;
+        if (isInstallApp(activity, packageName)) {
+            activity.startActivityForResult(IntentTool.getLaunchAppIntent(activity, packageName), requestCode);
         }
-        activity.startActivityForResult(IntentTool.getLaunchAppIntent(activity, packageName), requestCode);
     }
 
     /**
@@ -310,7 +308,7 @@ public class AppTool {
      */
     public static String getAppName(Context context, String packageName) {
         if (DataTool.isNullString(packageName)) {
-            return null;
+            return "";
         }
         try {
             PackageManager pm = context.getPackageManager();
@@ -318,7 +316,7 @@ public class AppTool {
             return pi == null ? null : pi.applicationInfo.loadLabel(pm).toString();
         } catch (PackageManager.NameNotFoundException e) {
             e.printStackTrace();
-            return null;
+            return "";
         }
     }
 
@@ -372,7 +370,7 @@ public class AppTool {
      */
     public static String getAppPath(Context context, String packageName) {
         if (DataTool.isNullString(packageName)) {
-            return null;
+            return "";
         }
         try {
             PackageManager pm = context.getPackageManager();
@@ -380,7 +378,7 @@ public class AppTool {
             return pi == null ? null : pi.applicationInfo.sourceDir;
         } catch (PackageManager.NameNotFoundException e) {
             e.printStackTrace();
-            return null;
+            return "";
         }
     }
 
@@ -412,7 +410,7 @@ public class AppTool {
      */
     public static String getAppVersionName(Context context, String packageName) {
         if (DataTool.isNullString(packageName)) {
-            return null;
+            return "";
         }
         try {
             PackageManager pm = context.getPackageManager();
@@ -420,7 +418,7 @@ public class AppTool {
             return pi == null ? null : pi.versionName;
         } catch (PackageManager.NameNotFoundException e) {
             e.printStackTrace();
-            return null;
+            return "";
         }
     }
 
