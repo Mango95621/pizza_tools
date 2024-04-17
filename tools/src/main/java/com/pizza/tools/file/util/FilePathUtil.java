@@ -8,9 +8,9 @@ import android.text.TextUtils;
 
 import androidx.annotation.RequiresApi;
 
-import com.pizza.tools.log.LogTool;
 import com.pizza.tools.ToolInit;
 import com.pizza.tools.file.FileTool;
+import com.pizza.tools.log.LogTool;
 
 import java.io.File;
 import java.io.FileFilter;
@@ -18,7 +18,6 @@ import java.io.FileFilter;
 /**
  * @author BoWei
  * 2023/8/24 09:55
- *
  */
 public class FilePathUtil {
     private static final String HIDDEN_PREFIX = ".";
@@ -32,11 +31,6 @@ public class FilePathUtil {
             return pathname.isFile() && !pathname.getName().startsWith(HIDDEN_PREFIX);
         }
     };
-
-    public FileFilter getFileFilter() {
-        return mFileFilter;
-    }
-
     /**
      * Folder (directories) filter.
      */
@@ -47,6 +41,10 @@ public class FilePathUtil {
         }
     };
 
+    public FileFilter getFileFilter() {
+        return mFileFilter;
+    }
+
     public FileFilter getDirFilter() {
         return mDirFilter;
     }
@@ -56,8 +54,16 @@ public class FilePathUtil {
         if (externalFilesDirs == null || externalFilesDirs.length == 0) {
             return "";
         }
+        if (externalFilesDirs[0] == null) {
+            return "";
+        }
         // 第0个元素一定是内置sdcard卡
         String path = externalFilesDirs[0].getAbsolutePath();
+
+        if (TextUtils.isEmpty(path)) {
+            return "";
+        }
+
         // 上方获取的路径类似/storage/emulated/0/Android/data/data/xxx.xxx.xxx/files/music
         // 因此截取路径Android，获取到/storage/emulated/0这个sdcard的根路径
         String sdcardPath = path.substring(0, path.indexOf("/Android"));
@@ -143,7 +149,7 @@ public class FilePathUtil {
      *     getExternalFilesDir(Environment.DIRECTORY_DOCUMENTS)
      * </pre>
      */
-    public  File[] getExternalFilesDirs(String type) {
+    public File[] getExternalFilesDirs(String type) {
         return ToolInit.getApplication().getExternalFilesDirs(type);
     }
 
@@ -198,13 +204,14 @@ public class FilePathUtil {
      * 获取此应用在外置储存中的文件目录
      * <pre>path: /storage/emulated/0/Android/data/package/files</pre>
      *
-     *  <pre>
+     * <pre>
      *      /storage/emulated/0/Android/data/package/files/Documents/
      *
      *      getExternalFilesDirs(Environment.DIRECTORY_DOCUMENTS)[0]
      *      等效于
      *      getExternalFilesDir(Environment.DIRECTORY_DOCUMENTS)
      *  </pre>
+     *
      * @return 此应用在外置储存中的文件目录
      */
     public File getExternalFilesDir() {
@@ -313,7 +320,7 @@ public class FilePathUtil {
 
     /**
      * 获取数据库存储路径(Get the database storage path)
-     *
+     * <p>
      * /data/data/包名/databases/
      */
     public String getDatabasePath(Context context, String dirName) {
@@ -332,7 +339,7 @@ public class FilePathUtil {
 
     /**
      * 获取外部缓存存储路径(Get external cache storage path)
-     *
+     * <p>
      * 获取此应用的缓存目录
      * release时目录为/data/data/package/cache
      * debug时目录为/SDCard/Android/data/包名/cache/
@@ -353,9 +360,9 @@ public class FilePathUtil {
 
     /**
      * 获取缓存存储路径(Get cache storage path)
-     *
+     * <p>
      * /SDCard/Android/data/包名/cache/
-     *
+     * <p>
      * 设置：对应清除缓存(Setting: corresponding to clear cache)
      */
     public String getCachePath(File cacheDir, String dirName) {
@@ -385,9 +392,9 @@ public class FilePathUtil {
 
     /**
      * 获取文件存储路径(Get file storage path)
-     *
+     * <p>
      * /SDCard/Android/data/包名/files/
-     *
+     * <p>
      * 设置：对应清除数据(Settings: corresponding to clear data)
      */
     public String getFilesPath(File filesDir, String dirName) {
