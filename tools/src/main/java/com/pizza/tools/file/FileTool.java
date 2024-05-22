@@ -3,6 +3,7 @@ package com.pizza.tools.file;
 import android.os.Build;
 import android.os.Environment;
 
+import com.pizza.tools.DataTool;
 import com.pizza.tools.file.util.FileGlobalUtil;
 import com.pizza.tools.file.util.FileMimeType;
 import com.pizza.tools.file.util.FileOperatorUtil;
@@ -10,7 +11,7 @@ import com.pizza.tools.file.util.FilePathUtil;
 import com.pizza.tools.file.util.FileSizeUtil;
 import com.pizza.tools.file.util.FileUriUtil;
 import com.pizza.tools.file.util.MediaStoreUtil;
-import com.pizza.tools.DataTool;
+import com.pizza.tools.log.LogTool;
 
 import java.io.File;
 
@@ -84,30 +85,36 @@ public class FileTool {
      * 获取可用的根目录
      */
     public File getCanUseRootPath() {
-        File path;
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
-            // 高版本，不直接往sdcard存了
-            if (mFileGlobalUtil.isSdcardAvailable()) {
-                return mFilePathUtil.getExternalFilesDir();
+        try {
+            File path;
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+                // 高版本，不直接往sdcard存了
+                if (mFileGlobalUtil.isSdcardAvailable()) {
+                    return mFilePathUtil.getExternalFilesDir();
+                } else {
+                    // 取得data的应用目录
+                    return mFilePathUtil.getFilesDir();
+                }
             } else {
-                // 取得data的应用目录
-                return mFilePathUtil.getFilesDir();
+                // 低版本获取sdcard根路径，直接存到sdcard里面
+                if (mFileGlobalUtil.isSdcardAvailable()) {
+                    // 取得sdcard文件路径
+                    path = Environment.getExternalStorageDirectory();
+                } else {
+                    // 取得data的应用目录
+                    path = mFilePathUtil.getFilesDir();
+                }
             }
-        } else {
-            // 低版本获取sdcard根路径，直接存到sdcard里面
-            if (mFileGlobalUtil.isSdcardAvailable()) {
-                // 取得sdcard文件路径
-                path = Environment.getExternalStorageDirectory();
-            } else {
-                // 取得data的应用目录
-                path = mFilePathUtil.getFilesDir();
-            }
+            return path;
+        } catch (Exception e) {
+            LogTool.e("getCanUseRootPath error", e);
+            return null;
         }
-        return path;
     }
 
     /**
      * 获取SD卡剩余空间
+     *
      * @return SD卡剩余空间
      */
     public String getFreeSpace() {
