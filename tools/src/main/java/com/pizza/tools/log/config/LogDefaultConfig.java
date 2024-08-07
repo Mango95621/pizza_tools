@@ -10,7 +10,7 @@ import com.pizza.tools.log.common.LogPattern;
 import com.pizza.tools.log.parser.Parser;
 
 /**
- * @Description: 日志默认配置实现
+ * 日志默认配置实现
  */
 public class LogDefaultConfig implements LogConfig {
     private boolean enable = true;

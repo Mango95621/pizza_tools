@@ -12,7 +12,7 @@ import com.pizza.tools.log.parser.ReferenceParse;
 import com.pizza.tools.log.parser.ThrowableParse;
 
 /**
- * @Description: 日志常量
+ * 日志常量
  */
 public class LogConstant {
 
@@ -33,7 +33,7 @@ public class LogConstant {
     /**
      * 换行符
      */
-    public static final String BR = System.getProperty("line.separator");
+    public static final String BR = System.lineSeparator();
 
     /**
      * 分割线方位

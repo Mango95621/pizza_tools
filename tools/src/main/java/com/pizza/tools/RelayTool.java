@@ -18,7 +18,6 @@ public class RelayTool {
      * 全开
      */
     public static String openAll() {
-//        return "005A600003000000BD";
         return "005A60FF03000000BC";
     }
 
@@ -59,7 +58,6 @@ public class RelayTool {
      *
      * @param boardNo 主板号
      * @param address 设置主板的地址
-     *
      * @return
      */
     public static String setAddress(int boardNo, int address) {

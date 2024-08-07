@@ -30,7 +30,7 @@ public class MediaTool {
         InputStream in = null;
         int num = 0;
         //需要生成的目标buff
-        StringBuffer buffer = new StringBuffer();
+        StringBuilder buffer = new StringBuilder();
         try {
             if (file != null) {
                 in = new FileInputStream(file);
@@ -38,7 +38,7 @@ public class MediaTool {
             BufferedReader reader = new BufferedReader(new InputStreamReader(in));
             String line = "";
             while ((line = reader.readLine()) != null) {
-                if (line.length() > 0 && line.startsWith("http://")) {
+                if (line.startsWith("http://")) {
                     buffer.append("file:").append(pathList.get(num).getAbsolutePath()).append("\r\n");
                     num++;
                 } else {

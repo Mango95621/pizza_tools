@@ -3,6 +3,9 @@ package com.pizza.tools.date;
 import android.annotation.SuppressLint;
 import android.util.Log;
 
+import com.pizza.tools.ConstantsTool;
+import com.pizza.tools.DataTool;
+
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -10,14 +13,11 @@ import java.util.Date;
 import java.util.Locale;
 import java.util.TimeZone;
 
-import static  com.pizza.tools.ConstantsTool.DAY;
-import static  com.pizza.tools.ConstantsTool.HOUR;
-import static  com.pizza.tools.ConstantsTool.MIN;
-import static  com.pizza.tools.ConstantsTool.MSEC;
-import static  com.pizza.tools.ConstantsTool.SEC;
-
-import com.pizza.tools.ConstantsTool;
-import com.pizza.tools.DataTool;
+import static com.pizza.tools.ConstantsTool.DAY;
+import static com.pizza.tools.ConstantsTool.HOUR;
+import static com.pizza.tools.ConstantsTool.MIN;
+import static com.pizza.tools.ConstantsTool.MSEC;
+import static com.pizza.tools.ConstantsTool.SEC;
 
 /**
  * @author BoWei

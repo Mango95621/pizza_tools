@@ -3,8 +3,6 @@ package com.pizza.tools.app;
 import android.graphics.drawable.Drawable;
 
 /**
- * Description:
- *
  * @author BoWei
  * 2020/8/27 6:38 PM
  */

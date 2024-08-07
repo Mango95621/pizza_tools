@@ -5,7 +5,7 @@ import com.pizza.tools.log.parser.Parser;
 
 /**
  * @author BoWei
- * @Description: 日志配置接口
+ * 日志配置接口
  */
 public interface LogConfig {
     /**

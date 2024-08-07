@@ -1,7 +1,7 @@
 package com.pizza.tools.log.inner;
 
 /**
- * @date: 2017-03-31 14:29
+ * 2017-03-31 14:29
  */
 public class ConsoleTree extends Tree {
     @Override

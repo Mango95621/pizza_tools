@@ -27,6 +27,7 @@ import com.pizza.tools.activity.IntentTool;
 import com.pizza.tools.file.FileTool;
 import com.pizza.tools.file.util.FileOperatorUtil;
 import com.pizza.tools.file.util.FilePathUtil;
+import com.pizza.tools.log.LogTool;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -127,8 +128,8 @@ public class AppTool {
         try {
             PackageManager pm = context.getPackageManager();
             ApplicationInfo ai = pm.getApplicationInfo(packageName, 0);
-            return ai != null && (ai.flags & ApplicationInfo.FLAG_SYSTEM) != 0;
-        } catch (PackageManager.NameNotFoundException e) {
+            return (ai.flags & ApplicationInfo.FLAG_SYSTEM) != 0;
+        } catch (Exception e) {
             e.printStackTrace();
             return false;
         }
@@ -189,7 +190,6 @@ public class AppTool {
      *
      * @param activity
      * @param permission
-     * @return
      */
     public static boolean isPermissionRequestIgnore(Activity activity, String permission) {
         return ActivityCompat.shouldShowRequestPermissionRationale(activity, permission);
@@ -200,7 +200,6 @@ public class AppTool {
      *
      * @param context
      * @param permission 例如 Manifest.permission.READ_PHONE_STATE
-     * @return
      */
     public static boolean checkPermission(Context context, String permission) {
         boolean result = false;
@@ -239,21 +238,75 @@ public class AppTool {
      * @param packageName 包名
      */
     public static void launchApp(Context context, String packageName) {
-        if (isInstallApp(context, packageName)) {
-            context.startActivity(IntentTool.getLaunchAppIntent(context, packageName));
+        Intent launchAppIntent = IntentTool.getLaunchAppIntent(context, packageName);
+        if (launchAppIntent != null) {
+            context.startActivity(launchAppIntent);
+            LogTool.d("launchApp:packageName->" + packageName);
+        } else {
+            intentApp(context,
+                    packageName,
+                    "android.intent.action.MAIN",
+                    "android.intent.category.DEFAULT");
         }
     }
 
-    /**
-     * 打开App
-     *
-     * @param activity    activity
-     * @param packageName 包名
-     * @param requestCode 请求值
-     */
-    public static void launchApp(Activity activity, String packageName, int requestCode) {
-        if (isInstallApp(activity, packageName)) {
-            activity.startActivityForResult(IntentTool.getLaunchAppIntent(activity, packageName), requestCode);
+    public static void intentApp(Context context,
+                                 String packageName,
+                                 String action,
+                                 String category) {
+        try {
+            LogTool.d("intentApp:packageName->" + packageName +
+                    ",action->" + action +
+                    ",category->" + category);
+            LogTool.d("intentApp:packageName->" + packageName);
+            Intent intent = new Intent(action);
+            intent.setPackage(packageName);
+            intent.addCategory(category);
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            context.startActivity(intent);
+        } catch (Exception e) {
+            LogTool.e("intentApp:packageName->" + packageName +
+                            ",action->" + action +
+                            ",category->" + category,
+                    e);
+        }
+    }
+
+    public static void launcherActivity(Context context, String packageName, String activityName) {
+        launcherActivity(context,
+                packageName,
+                activityName,
+                "android.intent.action.VIEW",
+                "android.intent.category.DEFAULT");
+    }
+
+    public static void launcherActivity(Context context,
+                                        String packageName,
+                                        String activityName,
+                                        String action,
+                                        String category) {
+        try {
+            LogTool.d("launcherActivity:packageName->" + packageName +
+                    ",action->" + action +
+                    ",category->" + category +
+                    ",activityName->" + activityName);
+            Intent activityIntent = IntentTool.getActivityIntent(packageName, activityName, action, category);
+            context.startActivity(activityIntent);
+        } catch (Exception e) {
+            LogTool.e("launcherActivity:packageName->" + packageName +
+                            ",action->" + action +
+                            ",category->" + category +
+                            ",activityName->" + activityName,
+                    e);
+        }
+    }
+
+    public static void launcherActivity(Context context, Intent intent) {
+        try {
+            LogTool.d("launcherActivity:intent->" + intent.toString());
+            context.startActivity(intent);
+        } catch (Exception e) {
+            LogTool.e("launcherActivity:intent->" + intent, e);
         }
     }
 
@@ -424,6 +477,7 @@ public class AppTool {
 
     /**
      * 获取App版本码
+     *
      * @return App版本码
      */
     public static int getAppVersionCode() {
@@ -485,8 +539,8 @@ public class AppTool {
         try {
             PackageManager pm = context.getPackageManager();
             ApplicationInfo ai = pm.getApplicationInfo(packageName, 0);
-            return ai != null && (ai.flags & ApplicationInfo.FLAG_DEBUGGABLE) != 0;
-        } catch (PackageManager.NameNotFoundException e) {
+            return (ai.flags & ApplicationInfo.FLAG_DEBUGGABLE) != 0;
+        } catch (Exception e) {
             e.printStackTrace();
             return false;
         }
@@ -561,7 +615,7 @@ public class AppTool {
     public static boolean isAppForeground(Context context) {
         ActivityManager manager = (ActivityManager) context.getSystemService(Context.ACTIVITY_SERVICE);
         List<ActivityManager.RunningAppProcessInfo> infos = manager.getRunningAppProcesses();
-        if (infos == null || infos.size() == 0) {
+        if (infos == null || infos.isEmpty()) {
             return false;
         }
         for (ActivityManager.RunningAppProcessInfo info : infos) {
@@ -625,7 +679,7 @@ public class AppTool {
         } catch (PackageManager.NameNotFoundException e) {
             e.printStackTrace();
         }
-        return pi != null ? getBean(pm, pi) : null;
+        return pi != null ? getAppInfo(pm, pi) : null;
     }
 
     /**
@@ -635,7 +689,7 @@ public class AppTool {
      * @param packageInfo    包的信息
      * @return AppInfo类
      */
-    private static AppInfo getBean(PackageManager packageManager, PackageInfo packageInfo) {
+    private static AppInfo getAppInfo(PackageManager packageManager, PackageInfo packageInfo) {
         ApplicationInfo applicationInfo = packageInfo.applicationInfo;
         AppInfo appInfo = new AppInfo();
         File file = new File(applicationInfo.sourceDir);
@@ -658,7 +712,7 @@ public class AppTool {
 
     /**
      * 获取所有已安装App信息
-     * <p>{@link #getBean(PackageManager, PackageInfo)}（名称，图标，包名，包路径，版本号，版本Code，是否安装在SD卡，是否是用户程序）</p>
+     * <p>{@link #getAppInfo(PackageManager, PackageInfo)}（名称，图标，包名，包路径，版本号，版本Code，是否安装在SD卡，是否是用户程序）</p>
      * <p>依赖上面的getBean方法</p>
      *
      * @param context 上下文
@@ -671,7 +725,7 @@ public class AppTool {
         List<PackageInfo> installedPackages = pm.getInstalledPackages(0);
         for (PackageInfo pi : installedPackages) {
             if (pi != null) {
-                list.add(getBean(pm, pi));
+                list.add(getAppInfo(pm, pi));
             }
         }
         return list;
@@ -691,7 +745,9 @@ public class AppTool {
         List<ActivityManager.RunningTaskInfo> tasks = am.getRunningTasks(1);
         if (!tasks.isEmpty()) {
             ComponentName topActivity = tasks.get(0).topActivity;
-            return !topActivity.getPackageName().equals(context.getPackageName());
+            if (topActivity != null) {
+                return !topActivity.getPackageName().equals(context.getPackageName());
+            }
         }
         return false;
     }
@@ -699,17 +755,16 @@ public class AppTool {
     /**
      * 清除App所有数据
      *
-     * @param context  上下文
      * @param dirPaths 目录路径
      * @return {@code true}: 成功<br>{@code false}: 失败
      */
-    public static boolean cleanAppData(Context context, String... dirPaths) {
+    public static boolean cleanAppData(String... dirPaths) {
         File[] dirs = new File[dirPaths.length];
         int i = 0;
         for (String dirPath : dirPaths) {
             dirs[i++] = new File(dirPath);
         }
-        return cleanAppData(context, dirs);
+        return cleanAppData(dirs);
     }
 
     /**
@@ -718,7 +773,7 @@ public class AppTool {
      * @param dirs 目录
      * @return {@code true}: 成功<br>{@code false}: 失败
      */
-    public static boolean cleanAppData(Context context, File... dirs) {
+    public static boolean cleanAppData(File... dirs) {
         FileOperatorUtil fileOperatorUtil = FileTool.get().getFileOperatorUtil();
         FilePathUtil filePathUtil = FileTool.get().getFilePathUtil();
         boolean isSuccess = fileOperatorUtil.deleteFilesNotDir(filePathUtil.getCacheDir());
@@ -738,7 +793,7 @@ public class AppTool {
      * @param pkgName
      * @return
      */
-    public static Context getAppContextByPkg(String pkgName) {
+    public static Context getAppContext(String pkgName) {
         try {
             return ToolInit.getApplication()
                     .createPackageContext(pkgName, Context.CONTEXT_IGNORE_SECURITY);

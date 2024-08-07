@@ -25,7 +25,7 @@ import com.pizza.tools.log.common.LogConvert;
 import com.pizza.tools.log.config.LogDefaultConfig;
 
 /**
- * @Description: 日志树功能实现
+ * 日志树功能实现
  */
 public abstract class Tree implements ITree {
 

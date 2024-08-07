@@ -2,9 +2,6 @@ package com.pizza.tools;
 
 import android.app.Application;
 import android.content.Context;
-import android.os.Handler;
-import android.os.Looper;
-import com.pizza.tools.log.LogTool;
 
 /**
  * @author BoWei
@@ -18,16 +15,14 @@ public class ToolInit {
 
     private static Context sApplicationContext;
 
-    private static boolean sIsDebug;
-
-    private static Handler sGlobalHandle;
+    private static boolean sIsDebug = false;
 
     private ToolInit() {
     }
 
     public static ToolInit get() {
         if (singleton == null) {
-            synchronized(ToolInit.class) {
+            synchronized (ToolInit.class) {
                 if (singleton == null) {
                     singleton = new ToolInit();
                 }
@@ -41,11 +36,9 @@ public class ToolInit {
      *
      * @param application
      */
-    public void init(Application application, boolean isDebug) {
+    public void init(Application application) {
         sApplication = application;
         sApplicationContext = application.getApplicationContext();
-        sIsDebug = isDebug;
-        sGlobalHandle = new Handler(Looper.getMainLooper());
     }
 
     public static Context getApplicationContext() {
@@ -62,11 +55,12 @@ public class ToolInit {
         throw new NullPointerException("ToolInit-->当前无法获取Context，请先在Application中调用init()方法");
     }
 
+    public static void setIsDebug(boolean isDebug) {
+        sIsDebug = isDebug;
+    }
+
     public static boolean isDebug() {
         return sIsDebug;
     }
 
-    public static Handler getGlobalHandle() {
-        return sGlobalHandle;
-    }
 }

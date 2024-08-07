@@ -10,7 +10,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 /**
- * @Description: 正则表达式验证格式化输出
+ * 正则表达式验证格式化输出
  */
 public abstract class LogPattern {
 

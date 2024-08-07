@@ -19,8 +19,8 @@ import com.pizza.tools.ToolInit;
  */
 public class DensityTool {
 
-    private static float sNoncompatDensity;
-    private static float sNoncompatScaledDensity;
+    private static float sNonCompatDensity;
+    private static float sNonCompatScaledDensity;
 
     /**
      * dp转换为px
@@ -96,14 +96,14 @@ public class DensityTool {
      */
     public static final void setCustomDensity(@NonNull Activity activity, @NonNull final Application application) {
         final DisplayMetrics appDisplayMetrics = application.getResources().getDisplayMetrics();
-        if (sNoncompatDensity == 0) {
-            sNoncompatDensity = appDisplayMetrics.density;
-            sNoncompatScaledDensity = appDisplayMetrics.scaledDensity;
+        if (sNonCompatDensity == 0) {
+            sNonCompatDensity = appDisplayMetrics.density;
+            sNonCompatScaledDensity = appDisplayMetrics.scaledDensity;
             application.registerComponentCallbacks(new ComponentCallbacks() {
                 @Override
                 public void onConfigurationChanged(Configuration configuration) {
                     if (configuration != null && configuration.fontScale > 0) {
-                        sNoncompatScaledDensity = application.getResources().getDisplayMetrics().scaledDensity;
+                        sNonCompatScaledDensity = application.getResources().getDisplayMetrics().scaledDensity;
                     }
                 }
 
@@ -115,7 +115,7 @@ public class DensityTool {
         }
 
         final float targetDensity = 1;
-        final float targetScaledDensity = targetDensity * (sNoncompatScaledDensity / sNoncompatDensity);
+        final float targetScaledDensity = targetDensity * (sNonCompatScaledDensity / sNonCompatDensity);
         final int targetDensityDpi = (int) (160 * targetDensity);
 
         appDisplayMetrics.density = targetDensity;

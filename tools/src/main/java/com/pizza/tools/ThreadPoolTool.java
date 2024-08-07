@@ -1,5 +1,10 @@
 package com.pizza.tools;
 
+import android.os.Build;
+import android.os.Handler;
+import android.os.HandlerThread;
+import android.os.Looper;
+
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -16,11 +21,6 @@ import java.util.concurrent.SynchronousQueue;
 import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
-
-import android.os.Build;
-import android.os.Handler;
-import android.os.HandlerThread;
-import android.os.Looper;
 
 /**
  * @author BoWei
@@ -212,9 +212,7 @@ public class ThreadPoolTool {
      *
      * @param timeout 最长等待时间
      * @param unit    时间单位
-     *
      * @return {@code true}: 请求成功<br>{@code false}: 请求超时
-     *
      * @throws InterruptedException 终端异常
      */
     public boolean awaitTermination(long timeout, TimeUnit unit) throws InterruptedException {
@@ -228,7 +226,6 @@ public class ThreadPoolTool {
      *
      * @param task 任务
      * @param <T>  泛型
-     *
      * @return 表示任务等待完成的Future, 该Future的{@code get}方法在成功完成时将会返回该任务的结果。
      */
     public <T> Future<T> submit(Callable<T> task) {
@@ -242,7 +239,6 @@ public class ThreadPoolTool {
      * @param task   任务
      * @param result 返回的结果
      * @param <T>    泛型
-     *
      * @return 表示任务等待完成的Future, 该Future的{@code get}方法在成功完成时将会返回该任务的结果。
      */
     public <T> Future<T> submit(Runnable task, T result) {
@@ -254,7 +250,6 @@ public class ThreadPoolTool {
      * 提交一个Runnable任务用于执行
      *
      * @param task 任务
-     *
      * @return 表示任务等待完成的Future, 该Future的{@code get}方法在成功完成时将会返回null结果。
      */
     public Future<?> submit(Runnable task) {
@@ -271,9 +266,7 @@ public class ThreadPoolTool {
      *
      * @param tasks 任务集合
      * @param <T>   泛型
-     *
      * @return 表示任务的 Future 列表，列表顺序与给定任务列表的迭代器所生成的顺序相同，每个任务都已完成。
-     *
      * @throws InterruptedException 如果等待时发生中断，在这种情况下取消尚未完成的任务。
      */
     public <T> List<Future<T>> invokeAll(Collection<? extends Callable<T>> tasks) throws InterruptedException {
@@ -293,9 +286,7 @@ public class ThreadPoolTool {
      * @param timeout 最长等待时间
      * @param unit    时间单位
      * @param <T>     泛型
-     *
      * @return 表示任务的 Future 列表，列表顺序与给定任务列表的迭代器所生成的顺序相同。如果操作未超时，则已完成所有任务。如果确实超时了，则某些任务尚未完成。
-     *
      * @throws InterruptedException 如果等待时发生中断，在这种情况下取消尚未完成的任务
      */
     public <T> List<Future<T>> invokeAll(Collection<? extends Callable<T>> tasks, long timeout, TimeUnit unit) throws
@@ -312,9 +303,7 @@ public class ThreadPoolTool {
      *
      * @param tasks 任务集合
      * @param <T>   泛型
-     *
      * @return 某个任务返回的结果
-     *
      * @throws InterruptedException 如果等待时发生中断
      * @throws ExecutionException   如果没有任务成功完成
      */
@@ -333,9 +322,7 @@ public class ThreadPoolTool {
      * @param timeout 最长等待时间
      * @param unit    时间单位
      * @param <T>     泛型
-     *
      * @return 某个任务返回的结果
-     *
      * @throws InterruptedException 如果等待时发生中断
      * @throws ExecutionException   如果没有任务成功完成
      * @throws TimeoutException     如果在所有任务成功完成之前给定的超时期满
@@ -372,7 +359,6 @@ public class ThreadPoolTool {
      * @param delay    延迟时间
      * @param unit     时间单位
      * @param <V>      泛型
-     *
      * @return 可用于提取结果或取消的ScheduledFuture
      */
     public <V> ScheduledFuture<V> scheduleTimer(Callable<V> callable, long delay, TimeUnit unit) {
@@ -386,7 +372,6 @@ public class ThreadPoolTool {
      * @param command 命令
      * @param delay   延迟时间
      * @param unit    单位
-     *
      * @return 表示挂起任务完成的ScheduledFuture，并且其{@code get()}方法在完成后将返回{@code null}
      */
     public ScheduledFuture<?> scheduleTimer(Runnable command, long delay, TimeUnit unit) {
@@ -401,7 +386,6 @@ public class ThreadPoolTool {
      * @param initialDelay 首次执行的延迟时间
      * @param period       连续执行之间的周期
      * @param unit         时间单位
-     *
      * @return 表示挂起任务完成的ScheduledFuture，并且其{@code get()}方法在取消后将抛出异常
      */
     public ScheduledFuture<?> scheduleWithFixedRateTimer(Runnable command, long initialDelay, long period,
@@ -417,7 +401,6 @@ public class ThreadPoolTool {
      * @param initialDelay 首次执行的延迟时间
      * @param delay        每一次执行终止和下一次执行开始之间的延迟
      * @param unit         时间单位
-     *
      * @return 表示挂起任务完成的ScheduledFuture，并且其{@code get()}方法在取消后将抛出异常
      */
     public ScheduledFuture<?> scheduleWithFixedDelayTimer(Runnable command, long initialDelay, long delay,

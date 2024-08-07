@@ -78,7 +78,7 @@ public class EncodeTool {
      * @return Base64编码后的字符串
      */
     public static byte[] base64Encode(String input, int flags) {
-        return base64Encode(input.getBytes(),flags);
+        return base64Encode(input.getBytes(), flags);
     }
 
     /**

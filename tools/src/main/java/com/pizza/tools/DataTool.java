@@ -18,12 +18,15 @@ import java.io.OutputStream;
 import java.io.UnsupportedEncodingException;
 import java.lang.reflect.Array;
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.text.DecimalFormat;
 import java.util.Collection;
 import java.util.Locale;
 import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
+import kotlin.text.Charsets;
 
 import static com.pizza.tools.ConstantsTool.BYTE;
 import static com.pizza.tools.ConstantsTool.GB;
@@ -138,7 +141,6 @@ public class DataTool {
      * 判断字符串是否为空 为空即true
      *
      * @param str 字符串
-     * @return
      */
     public static boolean isNullString(@Nullable String str) {
         return TextUtils.isEmpty(str);
@@ -154,19 +156,19 @@ public class DataTool {
         if (obj == null) {
             return true;
         }
-        if (obj instanceof String && obj.toString().length() == 0) {
+        if (obj instanceof String && obj.toString().isEmpty()) {
             return true;
         }
         if (obj.getClass().isArray() && Array.getLength(obj) == 0) {
             return true;
         }
-        if (obj instanceof Collection && ((Collection) obj).isEmpty()) {
+        if (obj instanceof Collection && ((Collection<?>) obj).isEmpty()) {
             return true;
         }
-        if (obj instanceof Map && ((Map) obj).isEmpty()) {
+        if (obj instanceof Map && ((Map<?, ?>) obj).isEmpty()) {
             return true;
         }
-        if (obj instanceof SparseArray && ((SparseArray) obj).size() == 0) {
+        if (obj instanceof SparseArray && ((SparseArray<?>) obj).size() == 0) {
             return true;
         }
         if (obj instanceof SparseBooleanArray && ((SparseBooleanArray) obj).size() == 0) {
@@ -217,9 +219,8 @@ public class DataTool {
      *
      * @param month
      * @param day
-     * @return
      */
-    public static String getAstro(int month, int day) {
+    public static String dateToConstellation(int month, int day) {
         String[] starArr = {"魔羯座", "水瓶座", "双鱼座", "牡羊座", "金牛座", "双子座", "巨蟹座", "狮子座", "处女座", "天秤座", "天蝎座", "射手座"};
         // 两个星座分割日
         int[] DayArr = {22, 20, 19, 21, 21, 21, 22, 23, 23, 23, 23, 22};
@@ -255,8 +256,6 @@ public class DataTool {
 
     /**
      * 判断是否为一个手机号
-     *
-     * @return
      */
     public static boolean isPhoneNum(String phoneNum) {
         return phoneNum.matches("^1[0-9]{10}$");
@@ -264,8 +263,6 @@ public class DataTool {
 
     /**
      * 判断是否为一个邮箱
-     *
-     * @return
      */
     public static boolean isEmail(String email) {
         String RULE_EMAIL = "^\\w+((-\\w+)|(\\.\\w+))*\\@[A-Za-z0-9]+((\\.|-)[A-Za-z0-9]+)*\\.[A-Za-z0-9]+$";
@@ -309,7 +306,6 @@ public class DataTool {
      * 银行卡后四位
      *
      * @param cardNo
-     * @return
      */
     public static String formatCardEnd4(String cardNo) {
         if (cardNo.length() < 8) {
@@ -324,7 +320,6 @@ public class DataTool {
      * 字符串转换成整数 ,转换失败将会 return 0;
      *
      * @param str 字符串
-     * @return
      */
     public static int stringToInt(String str) {
         if (isNullString(str)) {
@@ -342,7 +337,6 @@ public class DataTool {
      * 字符串转换成整型数组
      *
      * @param s
-     * @return
      */
     public static int[] stringToInts(String s) {
         int[] n = new int[s.length()];
@@ -359,14 +353,12 @@ public class DataTool {
      * 字符串转换为字节数组
      *
      * @param str
-     * @return
      */
     public static byte[] stringToByteArray(String str) {
         if (isNullString(str)) {
             return null;
         }
-        byte[] byteArray = str.getBytes();
-        return byteArray;
+        return str.getBytes();
     }
 
     /**
@@ -384,7 +376,6 @@ public class DataTool {
      * 整型数组求和
      *
      * @param ints
-     * @return
      */
     public static int intsGetSum(int[] ints) {
         int sum = 0;
@@ -400,7 +391,6 @@ public class DataTool {
      * 字符串转换成long ,转换失败将会 return 0;
      *
      * @param str 字符串
-     * @return
      */
     public static long stringToLong(String str) {
         if (isNullString(str)) {
@@ -418,7 +408,6 @@ public class DataTool {
      * 字符串转换成double ,转换失败将会 return 0;
      *
      * @param str 字符串
-     * @return
      */
     public static double stringToDouble(String str) {
         if (isNullString(str)) {
@@ -454,7 +443,6 @@ public class DataTool {
      * 将字符串格式化为带两位小数的字符串
      *
      * @param str 字符串
-     * @return
      */
     public static String format2Decimals(String str) {
         DecimalFormat df = new DecimalFormat("#.00");
@@ -472,9 +460,7 @@ public class DataTool {
      * @return
      */
     public static InputStream stringToInputStream(String str) {
-        InputStream in_nocode = new ByteArrayInputStream(str.getBytes());
-        //InputStream   in_withcode   =   new ByteArrayInputStream(str.getBytes("UTF-8"));
-        return in_nocode;
+        return new ByteArrayInputStream(str.getBytes(Charsets.UTF_8));
     }
 
     /**
@@ -981,7 +967,6 @@ public class DataTool {
      * 金额格式化
      *
      * @param value 数值
-     * @return
      */
     public static String getAmountValue(double value) {
         return AMOUNT_FORMAT.format(value);
@@ -991,7 +976,6 @@ public class DataTool {
      * 金额格式化
      *
      * @param value 数值
-     * @return
      */
     public static String getAmountValue(String value) {
         if (isNullString(value)) {
@@ -1005,10 +989,9 @@ public class DataTool {
      *
      * @param value 数值
      * @param digit 保留小数位
-     * @return
      */
     public static String getRoundUp(BigDecimal value, int digit) {
-        return value.setScale(digit, BigDecimal.ROUND_HALF_UP).toString();
+        return value.setScale(digit, RoundingMode.HALF_UP).toString();
     }
 
     /**
@@ -1016,11 +999,10 @@ public class DataTool {
      *
      * @param value 数值
      * @param digit 保留小数位
-     * @return
      */
     public static String getRoundUp(double value, int digit) {
         BigDecimal result = new BigDecimal(value);
-        return result.setScale(digit, BigDecimal.ROUND_HALF_UP).toString();
+        return result.setScale(digit, RoundingMode.HALF_UP).toString();
     }
 
     /**
@@ -1028,14 +1010,13 @@ public class DataTool {
      *
      * @param value 数值
      * @param digit 保留小数位
-     * @return
      */
     public static String getRoundUp(String value, int digit) {
         if (isNullString(value)) {
             return "0";
         }
-        BigDecimal result = new BigDecimal(Double.parseDouble(value));
-        return result.setScale(digit, BigDecimal.ROUND_HALF_UP).toString();
+        BigDecimal result = BigDecimal.valueOf(Double.parseDouble(value));
+        return result.setScale(digit, RoundingMode.HALF_UP).toString();
     }
 
     /**
@@ -1043,7 +1024,6 @@ public class DataTool {
      *
      * @param value 数值
      * @param digit 保留小数位
-     * @return
      */
     public static String getPercentValue(BigDecimal value, int digit) {
         BigDecimal result = value.multiply(new BigDecimal(100));
@@ -1055,7 +1035,6 @@ public class DataTool {
      *
      * @param value 数值
      * @param digit 保留小数位
-     * @return
      */
     public static String getPercentValue(double value, int digit) {
         BigDecimal result = new BigDecimal(value);
@@ -1066,7 +1045,6 @@ public class DataTool {
      * 获取百分比（乘100,保留两位小数）
      *
      * @param value 数值
-     * @return
      */
     public static String getPercentValue(double value) {
         BigDecimal result = new BigDecimal(value);

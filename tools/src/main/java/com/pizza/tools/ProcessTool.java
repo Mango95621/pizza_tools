@@ -1,5 +1,6 @@
 package com.pizza.tools;
 
+import android.annotation.SuppressLint;
 import android.app.ActivityManager;
 import android.app.AppOpsManager;
 import android.app.usage.UsageStats;
@@ -44,7 +45,7 @@ public class ProcessTool {
     public static String getForegroundProcessName(Context context) {
         ActivityManager manager = (ActivityManager) context.getSystemService(Context.ACTIVITY_SERVICE);
         List<ActivityManager.RunningAppProcessInfo> infos = manager.getRunningAppProcesses();
-        if (infos != null && infos.size() != 0) {
+        if (infos != null && !infos.isEmpty()) {
             for (ActivityManager.RunningAppProcessInfo info : infos) {
                 if (info.importance == ActivityManager.RunningAppProcessInfo.IMPORTANCE_FOREGROUND) {
                     return info.processName;
@@ -54,9 +55,10 @@ public class ProcessTool {
         if (android.os.Build.VERSION.SDK_INT > android.os.Build.VERSION_CODES.LOLLIPOP) {
             PackageManager packageManager = context.getPackageManager();
             Intent intent = new Intent(Settings.ACTION_USAGE_ACCESS_SETTINGS);
+            @SuppressLint("QueryPermissionsNeeded")
             List<ResolveInfo> list = packageManager.queryIntentActivities(intent, PackageManager.MATCH_DEFAULT_ONLY);
             System.out.println("RxProcessTool->" + list);
-            if (list.size() > 0) {
+            if (!list.isEmpty()) {
                 // 有"有权查看使用权限的应用"选项
                 try {
                     ApplicationInfo info = packageManager.getApplicationInfo(context.getPackageName(), 0);
@@ -71,12 +73,12 @@ public class ProcessTool {
                     UsageStatsManager usageStatsManager = (UsageStatsManager) context.getSystemService(Context.USAGE_STATS_SERVICE);
                     long endTime = System.currentTimeMillis();
                     long beginTime = endTime - 86400000 * 7;
-                    List<UsageStats> usageStatses = usageStatsManager.queryUsageStats(UsageStatsManager.INTERVAL_BEST, beginTime, endTime);
-                    if (usageStatses == null || usageStatses.isEmpty()) {
+                    List<UsageStats> usageStatsList = usageStatsManager.queryUsageStats(UsageStatsManager.INTERVAL_BEST, beginTime, endTime);
+                    if (usageStatsList == null || usageStatsList.isEmpty()) {
                         return null;
                     }
                     UsageStats recentStats = null;
-                    for (UsageStats usageStats : usageStatses) {
+                    for (UsageStats usageStats : usageStatsList) {
                         if (recentStats == null || usageStats.getLastTimeUsed() > recentStats.getLastTimeUsed()) {
                             recentStats = usageStats;
                         }
@@ -114,6 +116,7 @@ public class ProcessTool {
      *
      * @return 被暂时杀死的服务集合
      */
+    @SuppressLint("MissingPermission")
     public static Set<String> killAllBackgroundProcesses(Context context) {
         ActivityManager am = (ActivityManager) context.getSystemService(Context.ACTIVITY_SERVICE);
         List<ActivityManager.RunningAppProcessInfo> infos = am.getRunningAppProcesses();
@@ -140,13 +143,14 @@ public class ProcessTool {
      * @param packageName 包名
      * @return {@code true}: 杀死成功<br>{@code false}: 杀死失败
      */
+    @SuppressLint("MissingPermission")
     public static boolean killBackgroundProcesses(Context context, String packageName) {
         if (DataTool.isNullString(packageName)) {
             return false;
         }
         ActivityManager am = (ActivityManager) context.getSystemService(Context.ACTIVITY_SERVICE);
         List<ActivityManager.RunningAppProcessInfo> infos = am.getRunningAppProcesses();
-        if (infos == null || infos.size() == 0) {
+        if (infos == null || infos.isEmpty()) {
             return true;
         }
         for (ActivityManager.RunningAppProcessInfo info : infos) {
@@ -155,7 +159,7 @@ public class ProcessTool {
             }
         }
         infos = am.getRunningAppProcesses();
-        if (infos == null || infos.size() == 0) {
+        if (infos == null || infos.isEmpty()) {
             return true;
         }
         for (ActivityManager.RunningAppProcessInfo info : infos) {
@@ -169,6 +173,7 @@ public class ProcessTool {
     /**
      * 杀死前台进程
      * 需添加权限 android.permission.FORCE_STOP_PACKAGES
+     *
      * @param packageName 应用包名
      */
     public static void stopAppByForce(String packageName) {

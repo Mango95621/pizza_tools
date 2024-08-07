@@ -16,7 +16,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 /**
- * @Description: 文件树-输出日志信息到文件
+ * 文件树-输出日志信息到文件
  */
 public class FileTree extends Tree {
 

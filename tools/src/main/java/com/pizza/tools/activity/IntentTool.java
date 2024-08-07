@@ -73,6 +73,18 @@ public class IntentTool {
         return context.getPackageManager().getLaunchIntentForPackage(packageName);
     }
 
+    public static Intent getActivityIntent(String packageName,
+                                           String activityName,
+                                           String action,
+                                           String category) {
+        Intent intent = new Intent(action);
+        intent.setPackage(packageName);
+        intent.addCategory(category);
+        intent.setClassName(packageName, activityName);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        return intent;
+    }
+
     /**
      * 获取App信息的意图
      *

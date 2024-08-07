@@ -1,7 +1,7 @@
 package com.pizza.tools.log.inner;
 
 /**
- * @Description: 日志主干树实现
+ * 日志主干树实现
  */
 public class SoulsTree extends Tree {
 

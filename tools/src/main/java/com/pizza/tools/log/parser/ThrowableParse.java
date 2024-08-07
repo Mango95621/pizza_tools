@@ -4,7 +4,7 @@ import java.io.PrintWriter;
 import java.io.StringWriter;
 
 /**
- * @Description: Throwable解析器
+ * Throwable解析器
  */
 public class ThrowableParse implements Parser<Throwable> {
     @Override

@@ -1,8 +1,8 @@
 package com.pizza.tools.view;
 
+import android.os.SystemClock;
+
 /**
- * Description:
- *
  * @author BoWei
  * 2020/4/28 10:34 AM
  */
@@ -16,7 +16,7 @@ public class ClickTool {
     }
 
     public boolean isCanClick() {
-        long curClickTime = System.currentTimeMillis();
+        long curClickTime = SystemClock.elapsedRealtime();
         long interval = (curClickTime - lastClickTime);
         lastClickTime = curClickTime;
         return interval > fastClickInterval;

@@ -168,8 +168,8 @@ public class SPTool {
     /**
      * 清除指定的信息
      *
-     * @param name    键名
-     * @param key     若为null 则删除name下所有的键值
+     * @param name 键名
+     * @param key  若为null 则删除name下所有的键值
      */
     public static void clearPreference(String name, String key) {
         SharedPreferences sharedPreferences = ToolInit.getApplicationContext().getSharedPreferences(name, Context.MODE_PRIVATE);

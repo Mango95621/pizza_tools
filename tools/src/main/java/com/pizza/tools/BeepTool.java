@@ -18,7 +18,7 @@ public class BeepTool {
     private static final int VIBRATE_DURATION = 200;
     private static MediaPlayer mediaPlayer;
 
-    public static void playBeep(Activity mContext, boolean vibrate,int rawId) {
+    public static void playBeep(Activity mContext, boolean vibrate, int rawId) {
         boolean playBeep = true;
         AudioManager audioService = (AudioManager) mContext.getSystemService(AUDIO_SERVICE);
         if (audioService.getRingerMode() != AudioManager.RINGER_MODE_NORMAL) {

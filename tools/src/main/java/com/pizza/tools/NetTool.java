@@ -136,7 +136,7 @@ public class NetTool {
 
         } else {
             netType = NETWORK_NO;
-           showToast("当前无网络连接");
+            showToast("当前无网络连接");
         }
         return netType;
     }
@@ -394,7 +394,6 @@ public class NetTool {
      * Check if valid IPV4 address.
      *
      * @param input the address string to check for validity.
-     *
      * @return True if the input parameter is a valid IPv4 address.
      */
     public static boolean isIPv4Address(String input) {

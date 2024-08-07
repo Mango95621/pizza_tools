@@ -27,10 +27,10 @@ import com.pizza.tools.view.api.OnAnimUpdateListener;
  */
 public class AnimatorTool {
 
-    public static ObjectAnimator showAnim;
-    public static ObjectAnimator hideAnim;
-    private static final Interpolator accelerator = new AccelerateInterpolator();
-    private static final Interpolator decelerator = new DecelerateInterpolator();
+    public ObjectAnimator showAnim;
+    public ObjectAnimator hideAnim;
+    private final Interpolator accelerator = new AccelerateInterpolator();
+    private final Interpolator decelerator = new DecelerateInterpolator();
 
     /**
      * 颜色渐变动画
@@ -51,7 +51,7 @@ public class AnimatorTool {
      * @param frontView
      * @param backView
      */
-    public static void cardFlipAnimation(Context context,
+    public void cardFlipAnimation(Context context,
                                          final View frontView,
                                          final View backView,
                                          long duration) {
@@ -134,7 +134,7 @@ public class AnimatorTool {
      *
      * @param view
      */
-    public static void zoomIn(final View view, float scale, float dist) {
+    public void zoomIn(final View view, float scale, float dist) {
         view.setPivotY(view.getHeight());
         view.setPivotX(view.getWidth() / 2);
         AnimatorSet mAnimatorSet = new AnimatorSet();
@@ -153,7 +153,7 @@ public class AnimatorTool {
      *
      * @param view
      */
-    public static void zoomOut(final View view, float scale) {
+    public void zoomOut(final View view, float scale) {
         view.setPivotY(view.getHeight());
         view.setPivotX(view.getWidth() / 2);
         AnimatorSet mAnimatorSet = new AnimatorSet();
@@ -168,7 +168,7 @@ public class AnimatorTool {
         mAnimatorSet.start();
     }
 
-    public static void scaleUpDown(View view) {
+    public void scaleUpDown(View view) {
         ScaleAnimation animation = new ScaleAnimation(1.0f, 1.0f, 0.0f, 1.0f);
         animation.setRepeatCount(-1);
         animation.setRepeatMode(Animation.RESTART);
@@ -177,7 +177,7 @@ public class AnimatorTool {
         view.startAnimation(animation);
     }
 
-    public static void animateHeight(int start, int end, final View view) {
+    public void animateHeight(int start, int end, final View view) {
         ValueAnimator valueAnimator = ValueAnimator.ofInt(start, end);
         valueAnimator.addUpdateListener(animation -> {
             int value = (int) animation.getAnimatedValue();//根据时间因子的变化系数进行设置高度
@@ -188,7 +188,7 @@ public class AnimatorTool {
         valueAnimator.start();
     }
 
-    public static ObjectAnimator popIn(final View view, final long duration) {
+    public ObjectAnimator popIn(final View view, final long duration) {
         view.setAlpha(0);
         view.setVisibility(View.VISIBLE);
 
@@ -202,7 +202,7 @@ public class AnimatorTool {
         return popup;
     }
 
-    public static ObjectAnimator popOut(final View view, final long duration, final AnimatorListenerAdapter animatorListenerAdapter) {
+    public ObjectAnimator popOut(final View view, final long duration, final AnimatorListenerAdapter animatorListenerAdapter) {
         ObjectAnimator popOut = ObjectAnimator.ofPropertyValuesHolder(view,
                 PropertyValuesHolder.ofFloat("alpha", 1f, 0f),
                 PropertyValuesHolder.ofFloat("scaleX", 1f, 0f),
@@ -223,7 +223,7 @@ public class AnimatorTool {
         return popOut;
     }
 
-    public static long getAnimationDuration(Animation animation, long defaultDuration) {
+    public long getAnimationDuration(Animation animation, long defaultDuration) {
         if (animation == null) {
             return defaultDuration;
         }
@@ -231,7 +231,7 @@ public class AnimatorTool {
         return result < 0 ? defaultDuration : result;
     }
 
-    public static long getAnimatorDuration(Animator animator, long defaultDuration) {
+    public long getAnimatorDuration(Animator animator, long defaultDuration) {
         if (animator == null) {
             return defaultDuration;
         }
@@ -248,5 +248,13 @@ public class AnimatorTool {
             duration = animator.getDuration();
         }
         return duration < 0 ? defaultDuration : duration;
+    }
+
+    public ObjectAnimator getShowAnim() {
+        return showAnim;
+    }
+
+    public ObjectAnimator getHideAnim() {
+        return hideAnim;
     }
 }

@@ -5,7 +5,7 @@ import android.os.Bundle;
 import com.pizza.tools.log.common.LogConvert;
 
 /**
- * @Description: Bundle解析器
+ * Bundle解析器
  */
 public class BundleParse implements Parser<Bundle> {
     @Override

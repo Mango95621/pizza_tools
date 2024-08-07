@@ -9,7 +9,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * @Description: Intent解析器
+ * Intent解析器
  */
 public class IntentParse implements Parser<Intent> {
     @SuppressLint("UseSparseArrays")
@@ -45,30 +45,28 @@ public class IntentParse implements Parser<Intent> {
 
     @Override
     public String parseString(Intent intent) {
-        StringBuilder builder = new StringBuilder(parseClassType().getSimpleName() + " [" +
-                LINE_SEPARATOR);
-        builder.append(String.format("%s = %s" + LINE_SEPARATOR, "Scheme", intent.getScheme()));
-        builder.append(String.format("%s = %s" + LINE_SEPARATOR, "Action", intent.getAction()));
-        builder.append(String.format("%s = %s" + LINE_SEPARATOR, "DataString", intent
-                .getDataString()));
-        builder.append(String.format("%s = %s" + LINE_SEPARATOR, "Type", intent.getType()));
-        builder.append(String.format("%s = %s" + LINE_SEPARATOR, "Package", intent.getPackage()));
-        builder.append(String.format("%s = %s" + LINE_SEPARATOR, "ComponentInfo", intent
-                .getComponent()));
-        builder.append(String.format("%s = %s" + LINE_SEPARATOR, "Flags", getFlags(intent
-                .getFlags())));
-        builder.append(String.format("%s = %s" + LINE_SEPARATOR, "Categories", intent
-                .getCategories()));
-        builder.append(String.format("%s = %s" + LINE_SEPARATOR, "Extras",
-                new BundleParse().parseString(intent.getExtras())));
-        return builder.toString() + "]";
+        String builder = parseClassType().getSimpleName() + " [" +
+                LINE_SEPARATOR + String.format("%s = %s" + LINE_SEPARATOR, "Scheme", intent.getScheme()) +
+                String.format("%s = %s" + LINE_SEPARATOR, "Action", intent.getAction()) +
+                String.format("%s = %s" + LINE_SEPARATOR, "DataString", intent
+                        .getDataString()) +
+                String.format("%s = %s" + LINE_SEPARATOR, "Type", intent.getType()) +
+                String.format("%s = %s" + LINE_SEPARATOR, "Package", intent.getPackage()) +
+                String.format("%s = %s" + LINE_SEPARATOR, "ComponentInfo", intent
+                        .getComponent()) +
+                String.format("%s = %s" + LINE_SEPARATOR, "Flags", getFlags(intent
+                        .getFlags())) +
+                String.format("%s = %s" + LINE_SEPARATOR, "Categories", intent
+                        .getCategories()) +
+                String.format("%s = %s" + LINE_SEPARATOR, "Extras",
+                        new BundleParse().parseString(intent.getExtras()));
+        return builder + "]";
     }
 
     /**
      * 获取flag的值
      *
      * @param flags
-     * @return
      */
     private String getFlags(int flags) {
         StringBuilder builder = new StringBuilder();

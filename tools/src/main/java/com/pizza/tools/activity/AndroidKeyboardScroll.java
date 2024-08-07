@@ -1,5 +1,6 @@
 package com.pizza.tools.activity;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.graphics.Rect;
 import android.os.Build;
@@ -8,26 +9,27 @@ import android.view.ViewTreeObserver;
 import android.widget.FrameLayout;
 
 public class AndroidKeyboardScroll {
-    private View mChildOfContent;
+    private final View mChildOfContent;
     private int usableHeightPrevious;
-    private FrameLayout.LayoutParams frameLayoutParams;
+    private final FrameLayout.LayoutParams frameLayoutParams;
     private int contentHeight;
-    private boolean isfirst = true;
-    private int statusBarHeight;
+    private boolean isFirst = true;
+    private final int statusBarHeight;
 
     private AndroidKeyboardScroll(Activity activity) {
         //获取状态栏的高度
+        @SuppressLint({"InternalInsetResource", "DiscouragedApi"})
         int resourceId = activity.getResources().getIdentifier("status_bar_height", "dimen", "android");
         statusBarHeight = activity.getResources().getDimensionPixelSize(resourceId);
-        FrameLayout content = (FrameLayout) activity.findViewById(android.R.id.content);
+        FrameLayout content = activity.findViewById(android.R.id.content);
         mChildOfContent = content.getChildAt(0);
 
         //界面出现变动都会调用这个监听事件
         mChildOfContent.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
             public void onGlobalLayout() {
-                if (isfirst) {
+                if (isFirst) {
                     contentHeight = mChildOfContent.getHeight();//兼容华为等机型
-                    isfirst = false;
+                    isFirst = false;
                 }
                 possiblyResizeChildOfContent();
             }
@@ -54,7 +56,6 @@ public class AndroidKeyboardScroll {
             if (heightDifference > (usableHeightSansKeyboard / 4)) {
                 // keyboard probably just became visible
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-                    //frameLayoutParams.height = usableHeightSansKeyboard - heightDifference;
                     frameLayoutParams.height = usableHeightSansKeyboard - heightDifference + statusBarHeight;
                 } else {
                     frameLayoutParams.height = usableHeightSansKeyboard - heightDifference;

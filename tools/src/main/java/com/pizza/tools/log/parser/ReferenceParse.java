@@ -5,7 +5,7 @@ import java.lang.ref.Reference;
 import com.pizza.tools.log.common.LogConvert;
 
 /**
- * @Description: Reference解析器
+ * Reference解析器
  */
 public class ReferenceParse implements Parser<Reference> {
     @Override
@@ -16,9 +16,8 @@ public class ReferenceParse implements Parser<Reference> {
     @Override
     public String parseString(Reference reference) {
         Object actual = reference.get();
-        StringBuilder builder = new StringBuilder(reference.getClass().getSimpleName() + "<"
-                + actual.getClass().getSimpleName() + "> {");
-        builder.append("→").append(LogConvert.objectToString(actual));
-        return builder.toString() + "}";
+        String builder = reference.getClass().getSimpleName() + "<"
+                + actual.getClass().getSimpleName() + "> {" + "→" + LogConvert.objectToString(actual);
+        return builder + "}";
     }
 }

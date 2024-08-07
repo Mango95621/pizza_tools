@@ -1,7 +1,7 @@
 package com.pizza.tools.log.inner;
 
 /**
- * @Description: 日志树接口
+ * 日志树接口
  * @date: 16/12/11 16:05.
  */
 public interface ITree {

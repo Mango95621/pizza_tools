@@ -20,12 +20,12 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
+import com.pizza.tools.file.FileTool;
+import com.pizza.tools.log.LogTool;
+
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
-
-import com.pizza.tools.file.FileTool;
-import com.pizza.tools.log.LogTool;
 
 /**
  * @author BoWei
@@ -154,7 +154,7 @@ public class PhotoTool {
             ActivityCompat
                     .requestPermissions((Activity) context, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, 1);
             imageFilePath[0] = Uri.parse("");
-            LogTool.e("PhotoTool","请先获取写入SDCard权限");
+            LogTool.e("PhotoTool", "请先获取写入SDCard权限");
         } else {
             String status = Environment.getExternalStorageState();
             SimpleDateFormat timeFormatter = new SimpleDateFormat("yyyyMMdd_HHmmss", Locale.CHINA);

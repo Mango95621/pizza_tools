@@ -1,6 +1,7 @@
 package com.pizza.tools.app;
 
 import android.app.ActivityManager;
+import android.content.ComponentName;
 import android.content.Context;
 import android.util.Log;
 
@@ -8,7 +9,7 @@ import java.lang.reflect.Method;
 import java.util.List;
 
 /**
- * 清除任务管理器所有应用（切换到儿童模式时调用）
+ * 清除任务管理器所有应用
  */
 public class RecentAppTool {
 
@@ -18,8 +19,7 @@ public class RecentAppTool {
      */
     public static final int REMOVE_TASK_KILL_PROCESS = 0x0001;
     private static final String[] WHITE_PACKAGES = {
-            "cc.popin.aladdin.home",
-            "cc.popin.aladdin.settings"
+            "com.android.launcher",
     };
     private ActivityManager mActivityManager = null;
     private Method mRemoveTask;
@@ -48,7 +48,7 @@ public class RecentAppTool {
      */
     public boolean removeTask(int taskId, int flags) {
         try {
-            return (Boolean) mRemoveTask.invoke(mActivityManager, Integer.valueOf(taskId)); // , Integer.valueOf(flags)
+            return (Boolean) mRemoveTask.invoke(mActivityManager, Integer.valueOf(taskId));
         } catch (Exception ex) {
             Log.i("RecentActivityManager", "Task removal failed", ex);
         }
@@ -61,8 +61,13 @@ public class RecentAppTool {
                     mActivityManager.getRecentTasks(1000, ActivityManager.RECENT_IGNORE_UNAVAILABLE);
             // Start from 1, since we don't want to kill ourselves!
             for (int i = 0; i < recents.size(); i++) {
-                String packageName = (recents.get(i) != null && recents.get(i).baseActivity != null)
-                        ? recents.get(i).baseActivity.getPackageName() : "";
+                String packageName = null;
+                if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.M) {
+                    ComponentName baseActivity = recents.get(i).baseActivity;
+                    packageName = (recents.get(i) != null && baseActivity != null) ? baseActivity.getPackageName() : "";
+                } else {
+                    return;
+                }
 
                 boolean isNeedContinue = false;
                 for (String p : WHITE_PACKAGES) {

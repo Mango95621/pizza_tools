@@ -3,7 +3,7 @@ package com.pizza.tools.log.inner;
 import android.util.Log;
 
 /**
- * @Description: Logcat树-输出日志信息到Logcat
+ * Logcat树-输出日志信息到Logcat
  */
 public class LogcatTree extends Tree {
     @Override

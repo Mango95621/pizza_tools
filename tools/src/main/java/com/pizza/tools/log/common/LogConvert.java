@@ -168,7 +168,7 @@ public class LogConvert {
         if (childLevel > LogConstant.MAX_CHILD_LEVEL) {
             return object.toString();
         }
-        if (LogConstant.getParsers() != null && LogConstant.getParsers().size() > 0) {
+        if (LogConstant.getParsers() != null && !LogConstant.getParsers().isEmpty()) {
             for (Parser parser : LogConstant.getParsers()) {
                 if (parser.parseClassType().isAssignableFrom(object.getClass())) {
                     return parser.parseString(object);
@@ -182,9 +182,11 @@ public class LogConvert {
             StringBuilder builder = new StringBuilder();
             getClassFields(object.getClass(), builder, object, false, childLevel);
             Class superClass = object.getClass().getSuperclass();
-            while (!superClass.equals(Object.class)) {
-                getClassFields(superClass, builder, object, true, childLevel);
-                superClass = superClass.getSuperclass();
+            if (superClass != null) {
+                while (!superClass.equals(Object.class)) {
+                    getClassFields(superClass, builder, object, true, childLevel);
+                    superClass = superClass.getSuperclass();
+                }
             }
             return builder.toString();
         } else {

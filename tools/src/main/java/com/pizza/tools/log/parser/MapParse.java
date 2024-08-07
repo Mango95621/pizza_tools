@@ -6,7 +6,7 @@ import java.util.Set;
 import com.pizza.tools.log.common.LogConvert;
 
 /**
- * @Description: Map解析器
+ * Map解析器
  */
 public class MapParse implements Parser<Map> {
     @Override
@@ -16,7 +16,7 @@ public class MapParse implements Parser<Map> {
 
     @Override
     public String parseString(Map map) {
-        String msg = map.getClass().getName() + " [" + LINE_SEPARATOR;
+        StringBuilder msg = new StringBuilder(map.getClass().getName() + " [" + LINE_SEPARATOR);
         Set keys = map.keySet();
         for (Object key : keys) {
             String itemString = "%s -> %s" + LINE_SEPARATOR;
@@ -28,8 +28,8 @@ public class MapParse implements Parser<Map> {
                     value = "\'" + value + "\'";
                 }
             }
-            msg += String.format(itemString, LogConvert.objectToString(key),
-                    LogConvert.objectToString(value));
+            msg.append(String.format(itemString, LogConvert.objectToString(key),
+                    LogConvert.objectToString(value)));
         }
         return msg + "]";
     }

@@ -53,7 +53,6 @@ public class KeyboardTool {
         }
         // 显示输入法
         view.postDelayed(new Runnable() {
-
             @Override
             public void run() {
                 show(view);

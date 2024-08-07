@@ -9,17 +9,17 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import static com.pizza.tools.ConstantsTool.REGEX_CHZ;
-import static  com.pizza.tools.ConstantsTool.REGEX_DATE;
-import static  com.pizza.tools.ConstantsTool.REGEX_EMAIL;
-import static  com.pizza.tools.ConstantsTool.REGEX_IDCARD;
-import static  com.pizza.tools.ConstantsTool.REGEX_IDCARD15;
-import static  com.pizza.tools.ConstantsTool.REGEX_IDCARD18;
-import static  com.pizza.tools.ConstantsTool.REGEX_IP;
-import static  com.pizza.tools.ConstantsTool.REGEX_MOBILE_EXACT;
-import static  com.pizza.tools.ConstantsTool.REGEX_MOBILE_SIMPLE;
-import static  com.pizza.tools.ConstantsTool.REGEX_TEL;
-import static  com.pizza.tools.ConstantsTool.REGEX_URL;
-import static  com.pizza.tools.ConstantsTool.REGEX_USERNAME;
+import static com.pizza.tools.ConstantsTool.REGEX_DATE;
+import static com.pizza.tools.ConstantsTool.REGEX_EMAIL;
+import static com.pizza.tools.ConstantsTool.REGEX_IDCARD;
+import static com.pizza.tools.ConstantsTool.REGEX_IDCARD15;
+import static com.pizza.tools.ConstantsTool.REGEX_IDCARD18;
+import static com.pizza.tools.ConstantsTool.REGEX_IP;
+import static com.pizza.tools.ConstantsTool.REGEX_MOBILE_EXACT;
+import static com.pizza.tools.ConstantsTool.REGEX_MOBILE_SIMPLE;
+import static com.pizza.tools.ConstantsTool.REGEX_TEL;
+import static com.pizza.tools.ConstantsTool.REGEX_URL;
+import static com.pizza.tools.ConstantsTool.REGEX_USERNAME;
 
 /**
  * @author BoWei

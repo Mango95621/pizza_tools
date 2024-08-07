@@ -1,5 +1,6 @@
 package com.pizza.tools;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.os.Vibrator;
 
@@ -16,6 +17,7 @@ public class VibrateTool {
      * @param context     调用震动的Context
      * @param millisecond 震动的时间，毫秒
      */
+    @SuppressLint("MissingPermission")
     @SuppressWarnings("static-access")
     public static void vibrateOnce(Context context, int millisecond) {
         vibrator = (Vibrator) context.getSystemService(context.VIBRATOR_SERVICE);
@@ -34,6 +36,7 @@ public class VibrateTool {
      *
      *
      */
+    @SuppressLint("MissingPermission")
     @SuppressWarnings("static-access")
     public static void vibrateComplicated(Context context, long[] pattern, int repeate) {
         vibrator = (Vibrator) context.getSystemService(context.VIBRATOR_SERVICE);
@@ -43,6 +46,7 @@ public class VibrateTool {
     /**
      * 停止震动
      */
+    @SuppressLint("MissingPermission")
     public static void vibrateStop() {
         if (vibrator != null) {
             vibrator.cancel();

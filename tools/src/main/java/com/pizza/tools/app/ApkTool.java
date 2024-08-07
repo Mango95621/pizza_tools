@@ -1,5 +1,10 @@
 package com.pizza.tools.app;
 
+import android.content.Context;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
+import android.content.pm.Signature;
+
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
@@ -8,11 +13,6 @@ import java.security.cert.Certificate;
 import java.util.jar.JarEntry;
 import java.util.jar.JarFile;
 
-import android.content.Context;
-import android.content.pm.PackageInfo;
-import android.content.pm.PackageManager;
-import android.content.pm.Signature;
-
 /**
  * @author BoWei
  * 11/25/20 10:40 AM
@@ -20,6 +20,7 @@ import android.content.pm.Signature;
 public class ApkTool {
     /**
      * 从 apk 中获取 MD5 签名信息
+     *
      * @param apkPath
      * @return
      * @throws Exception
@@ -117,7 +118,6 @@ public class ApkTool {
      *
      * @param context
      * @param pkgName
-     *
      * @return
      */
     public static String getAppSignatureMD5(Context context, String pkgName) {

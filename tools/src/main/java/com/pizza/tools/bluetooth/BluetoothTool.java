@@ -188,6 +188,7 @@ public class BluetoothTool {
 
     /**
      * 获取已连接的蓝牙设备
+     *
      * @return
      */
     @SuppressLint("MissingPermission")

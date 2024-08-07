@@ -2,8 +2,6 @@ package com.pizza.tools;
 
 import android.app.Activity;
 import android.content.Context;
-import android.content.pm.PackageInfo;
-import android.content.pm.PackageManager;
 import android.content.res.Configuration;
 import android.graphics.Bitmap;
 import android.net.wifi.WifiInfo;
@@ -18,7 +16,6 @@ import android.view.View;
 import android.view.WindowManager;
 
 import com.pizza.tools.file.FileTool;
-import com.pizza.tools.log.LogTool;
 
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -26,9 +23,6 @@ import java.io.LineNumberReader;
 import java.lang.reflect.Method;
 import java.net.NetworkInterface;
 import java.util.Enumeration;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.Map;
 
 /**
  * @author BoWei
@@ -98,10 +92,11 @@ public class DeviceTool {
 
     /**
      * 获取当前屏幕的最小限定符
+     *
      * @param activity activity实例
      * @return 最小限定符
      */
-    public static float getSmallestWidth (Activity activity){
+    public static float getSmallestWidth(Activity activity) {
         DisplayMetrics dm = new DisplayMetrics();
         activity.getWindowManager().getDefaultDisplay().getMetrics(dm);
         int heightPixels = DeviceTool.getScreenHeight(activity);

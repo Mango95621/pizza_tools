@@ -23,8 +23,7 @@ import javax.net.ssl.TrustManagerFactory;
 import javax.net.ssl.X509TrustManager;
 
 /**
- * @Description: SSL
- * @date: 2017-01-05 10:43
+ * 2017-01-05 10:43
  */
 public class SSLTool {
 
