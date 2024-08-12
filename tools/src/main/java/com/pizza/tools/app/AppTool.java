@@ -258,7 +258,6 @@ public class AppTool {
             LogTool.d("intentApp:packageName->" + packageName +
                     ",action->" + action +
                     ",category->" + category);
-            LogTool.d("intentApp:packageName->" + packageName);
             Intent intent = new Intent(action);
             intent.setPackage(packageName);
             intent.addCategory(category);
