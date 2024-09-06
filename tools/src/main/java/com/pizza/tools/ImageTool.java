@@ -6,7 +6,6 @@ import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.Bitmap.CompressFormat;
 import android.graphics.BitmapFactory;
-import android.graphics.BitmapShader;
 import android.graphics.BlurMaskFilter;
 import android.graphics.Canvas;
 import android.graphics.Color;
@@ -58,6 +57,17 @@ import java.net.URL;
  */
 
 public class ImageTool {
+
+    public static final int CORNER_NONE = 0;
+    public static final int CORNER_TOP_LEFT = 1;
+    public static final int CORNER_TOP_RIGHT = 1 << 1;
+    public static final int CORNER_BOTTOM_LEFT = 1 << 2;
+    public static final int CORNER_BOTTOM_RIGHT = 1 << 3;
+    public static final int CORNER_ALL = CORNER_TOP_LEFT | CORNER_TOP_RIGHT | CORNER_BOTTOM_LEFT | CORNER_BOTTOM_RIGHT;
+    public static final int CORNER_TOP = CORNER_TOP_LEFT | CORNER_TOP_RIGHT;
+    public static final int CORNER_BOTTOM = CORNER_BOTTOM_LEFT | CORNER_BOTTOM_RIGHT;
+    public static final int CORNER_LEFT = CORNER_TOP_LEFT | CORNER_BOTTOM_LEFT;
+    public static final int CORNER_RIGHT = CORNER_TOP_RIGHT | CORNER_BOTTOM_RIGHT;
 
     /**
      * 得到本地或者网络上的bitmap url - 网络或者本地图片的绝对路径,比如:
@@ -827,37 +837,82 @@ public class ImageTool {
      * @param radius 圆角的度数
      * @return 圆角图片
      */
-    public static Bitmap toRoundCorner(Bitmap src, float radius) {
-        return toRoundCorner(src, radius, false);
+    public static Bitmap toRoundCorner(Bitmap src, int radius) {
+        return toRoundCorner(src, radius, CORNER_ALL);
     }
 
     /**
      * 转为圆角图片
      *
-     * @param src     源图片
-     * @param radius  圆角的度数
-     * @param recycle 是否回收
+     * @param bitmap      源图片
+     * @param radius      圆角的度数
+     * @param cornersFlag 圆角的方位
      * @return 圆角图片
      */
-    public static Bitmap toRoundCorner(Bitmap src, float radius, boolean recycle) {
-        if (null == src) {
-            return null;
+    public static Bitmap toRoundCorner(Bitmap bitmap, int radius, int cornersFlag) {
+        try {
+            // 其原理就是：先建立一个与图片大小相同的透明的Bitmap画板
+            // 然后在画板上画出一个想要的形状的区域。
+            // 最后把源图片帖上。
+            final int width = bitmap.getWidth();
+            final int height = bitmap.getHeight();
+
+            Bitmap paintingBoard = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888);
+            Canvas canvas = new Canvas(paintingBoard);
+            canvas.drawARGB(Color.TRANSPARENT, Color.TRANSPARENT, Color.TRANSPARENT, Color.TRANSPARENT);
+
+            final Paint paint = new Paint();
+            paint.setAntiAlias(true);
+            paint.setColor(Color.BLACK);
+
+            // 画出4个圆角
+            final RectF rectF = new RectF(0, 0, width, height);
+            canvas.drawRoundRect(rectF, radius, radius, paint);
+
+            // 把不需要的圆角去掉
+            int notRoundedCorners = cornersFlag ^ CORNER_ALL;
+            if ((notRoundedCorners & CORNER_TOP_LEFT) != 0) {
+                clipTopLeft(canvas, paint, radius, width, height);
+            }
+            if ((notRoundedCorners & CORNER_TOP_RIGHT) != 0) {
+                clipTopRight(canvas, paint, radius, width, height);
+            }
+            if ((notRoundedCorners & CORNER_BOTTOM_LEFT) != 0) {
+                clipBottomLeft(canvas, paint, radius, width, height);
+            }
+            if ((notRoundedCorners & CORNER_BOTTOM_RIGHT) != 0) {
+                clipBottomRight(canvas, paint, radius, width, height);
+            }
+            paint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.SRC_IN));
+
+            // 帖子图
+            final Rect srcRect = new Rect(0, 0, width, height);
+            final Rect dstRect = srcRect;
+            canvas.drawBitmap(bitmap, srcRect, dstRect, paint);
+            return paintingBoard;
+        } catch (Exception exp) {
+            return bitmap;
         }
-        int width = src.getWidth();
-        int height = src.getHeight();
-        Bitmap ret = src.copy(src.getConfig(), true);
-        BitmapShader bitmapShader = new BitmapShader(src,
-                Shader.TileMode.CLAMP, Shader.TileMode.CLAMP);
-        Paint paint = new Paint();
-        Canvas canvas = new Canvas(ret);
-        RectF rectf = new RectF(0, 0, width, height);
-        paint.setAntiAlias(true);
-        paint.setShader(bitmapShader);
-        canvas.drawRoundRect(rectf, radius, radius, paint);
-        if (recycle && !src.isRecycled()) {
-            src.recycle();
-        }
-        return ret;
+    }
+
+    private static void clipTopLeft(final Canvas canvas, final Paint paint, int offset, int width, int height) {
+        final Rect block = new Rect(0, 0, offset, offset);
+        canvas.drawRect(block, paint);
+    }
+
+    private static void clipTopRight(final Canvas canvas, final Paint paint, int offset, int width, int height) {
+        final Rect block = new Rect(width - offset, 0, width, offset);
+        canvas.drawRect(block, paint);
+    }
+
+    private static void clipBottomLeft(final Canvas canvas, final Paint paint, int offset, int width, int height) {
+        final Rect block = new Rect(0, height - offset, offset, height);
+        canvas.drawRect(block, paint);
+    }
+
+    private static void clipBottomRight(final Canvas canvas, final Paint paint, int offset, int width, int height) {
+        final Rect block = new Rect(width - offset, height - offset, width, height);
+        canvas.drawRect(block, paint);
     }
 
     /**
